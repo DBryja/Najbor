@@ -33,7 +33,6 @@ function get_katprace_categories_with_translations() {
 	]);
 
 	$categories_with_translations = [];
-
 	if (!is_wp_error($categories)) {
 		foreach ($categories as $category) {
 			$category_id = $category->term_id;
@@ -48,7 +47,6 @@ function get_katprace_categories_with_translations() {
 			];
 		}
 	}
-
 	return $categories_with_translations;
 }
 

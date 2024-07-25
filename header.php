@@ -12,6 +12,23 @@
 
     <?php
     wp_head();
+
+    function get_custom_header_template() {
+	    if (is_front_page() || is_home()) {
+		    get_template_part('template-parts/header', 'home');
+	    } elseif (is_page('kontakt')) {
+		    get_template_part('template-parts/header', 'kontakt');
+	    } elseif (is_post_type_archive('prace')) {
+		    get_template_part('template-parts/header', 'prace');
+	    } elseif (is_tax('katprace')) {
+		    get_template_part('template-parts/header', 'katprace');
+	    } elseif (is_singular("prace")){
+            get_template_part('template-parts/header', 'single-prace');
+        }
+        else {
+		    get_template_part('template-parts/header', 'default');
+	    }
+    }
     ?>
 
 </head>
@@ -94,36 +111,10 @@
     </nav>
 </header>
 
-<?php
-$language = get_site_language();
-
-$term_name = '';
-$term_slug = '';
-
-$queried_object = get_queried_object();
-$terms = get_the_terms( get_the_ID(), 'katprace' );
-$working_object = $queried_object;
-if ( $terms && !is_wp_error( $terms ) ) {
-    $working_object = $terms[0];
-}
-$term_id = $working_object->term_id;
-$term_name = $working_object->name;
-$term_slug = $working_object->slug;
-if ($language != "pl"){
-    $term_name = get_field($language, 'katprace_' . $term_id);
-}
-?>
-
 <div class="main-wrapper">
     <header class="page-title theme-bg-light text-center gradient py-5">
-        <a href="/wordpress/prace/<?php echo $term_slug?>">
             <h1 class="heading">
-                <?php echo $term_name; ?>
-<!--                --><?php
-//                echo 'Nazwa kategorii: ' . $term_name . '<br>';
-//                echo 'Slug kategorii: ' . $term_slug . '<br>';
-//                ?>
+	                <?php get_custom_header_template(); ?>
             </h1>
-        </a>
     </header>
 
