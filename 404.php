@@ -1,0 +1,35 @@
+<?php
+get_header();
+$page_slug = '404-not-found'; // Slug strony 404-not-found
+$page = get_page_by_path($page_slug);
+if ($page) {
+	$language = get_site_language();
+	$quote    = '';
+    echo $language;
+
+	if ( $language === 'pl_PL' ) {
+		$quote = get_field( 'cytat_pl', $page->ID );
+	} elseif ( $language === 'fr_FR' ) {
+		$quote = get_field( 'cytat_fr', $page->ID );
+	} elseif ( $language === 'en_US' ) {
+		$quote = get_field( 'cytat_en', $page->ID );
+	}
+}
+
+?>
+
+<article class="content px-3 py-5 p-md-5">
+    <h1>
+	<?php
+	if ($quote) {
+		echo esc_html($quote);
+	} else {
+        echo '404 - Page not found';
+    }
+	?>
+    </h1>
+</article>
+<?php
+get_footer();
+?>
+
