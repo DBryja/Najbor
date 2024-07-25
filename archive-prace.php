@@ -9,17 +9,7 @@
         echo '<ul>';
         foreach ($categories_with_translations as $category) {
 	        echo '<li> <a href="'.get_term_link($category['slug'], 'katprace') . '">';
-            switch ($language) {
-                case 'pl_PL':
-                    echo esc_html($category['name']);
-	                break;
-                case 'fr_FR':
-                    echo esc_html($category['name_fr']);
-	                break;
-                case 'en_US':
-                    echo esc_html($category['name_en']);
-	                break;
-            }
+            echo esc_html($category['name_'.$language]);
 	        echo '</a></li><br/>';
         }
         echo '</ul>';

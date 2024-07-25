@@ -4,16 +4,7 @@ $page_slug = '404-not-found'; // Slug strony 404-not-found
 $page = get_page_by_path($page_slug);
 if ($page) {
 	$language = get_site_language();
-	$quote    = '';
-    echo $language;
-
-	if ( $language === 'pl_PL' ) {
-		$quote = get_field( 'cytat_pl', $page->ID );
-	} elseif ( $language === 'fr_FR' ) {
-		$quote = get_field( 'cytat_fr', $page->ID );
-	} elseif ( $language === 'en_US' ) {
-		$quote = get_field( 'cytat_en', $page->ID );
-	}
+    $quote = get_field('cytat_'.$language, $page->ID);
 }
 
 ?>

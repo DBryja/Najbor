@@ -46,9 +46,9 @@
             <form id="language-form">
                 <label for="language-select"><?php _e('Choose Language', 'textdomain'); ?>:</label>
                 <select id="language-select">
-                    <option value="pl_PL" <?php selected($language, 'pl_PL'); ?>><?php _e('Polski', 'textdomain'); ?></option>
-                    <option value="fr_FR" <?php selected($language, 'fr_FR'); ?>><?php _e('Français', 'textdomain'); ?></option>
-                    <option value="en_US" <?php selected($language, 'en_US'); ?>><?php _e('English', 'textdomain'); ?></option>
+                    <option value="pl" <?php selected($language, 'pl'); ?>><?php _e('Polski', 'textdomain'); ?></option>
+                    <option value="fr" <?php selected($language, 'fr'); ?>><?php _e('Français', 'textdomain'); ?></option>
+                    <option value="en" <?php selected($language, 'en'); ?>><?php _e('English', 'textdomain'); ?></option>
                 </select>
             </form>
             <script>
@@ -95,28 +95,22 @@
 </header>
 
 <?php
+$language = get_site_language();
+
 $term_name = '';
 $term_slug = '';
-$term_name_fr = '';
-$term_name_en = '';
-
 
 $queried_object = get_queried_object();
 $terms = get_the_terms( get_the_ID(), 'katprace' );
-
-if ( $queried_object instanceof WP_Term ) {
-	$term_id = $queried_object->term_id;
-	$term_name = $queried_object->name; // Nazwa kategorii
-	$term_slug = $queried_object->slug;
-	$term_name_fr = get_field('fr_fr', 'katprace_' . $term_id); // Nazwa kategorii po francusku
-	$term_name_en = get_field('en_us', 'katprace_' . $term_id); // Nazwa kategorii po angielsku
+$working_object = $queried_object;
+if ( $terms && !is_wp_error( $terms ) ) {
+    $working_object = $terms[0];
 }
-else if ( $terms && !is_wp_error( $terms ) ) {
-	$term_id = $terms[0]->term_id;
-	$term_name = $terms[0]->name;
-	$term_slug = $terms[0]->slug;
-	$term_name_fr = get_field('fr_FR', 'katprace_' . $term_id); // Nazwa kategorii po francusku
-	$term_name_en = get_field('en_US', 'katprace_' . $term_id); // Nazwa kategorii po angielsku
+$term_id = $working_object->term_id;
+$term_name = $working_object->name;
+$term_slug = $working_object->slug;
+if ($language != "pl"){
+    $term_name = get_field($language, 'katprace_' . $term_id);
 }
 ?>
 
@@ -125,12 +119,10 @@ else if ( $terms && !is_wp_error( $terms ) ) {
         <a href="/wordpress/prace/<?php echo $term_slug?>">
             <h1 class="heading">
                 <?php echo $term_name; ?>
-                <?php
-                echo 'Nazwa kategorii: ' . $term_name . '<br>';
-                echo 'Nazwa kategorii po francusku: ' . $term_name_fr . '<br>';
-                echo 'Nazwa kategorii po angielsku: ' . $term_name_en . '<br>';
-                echo 'Slug kategorii: ' . $term_slug . '<br>';
-                ?>
+<!--                --><?php
+//                echo 'Nazwa kategorii: ' . $term_name . '<br>';
+//                echo 'Slug kategorii: ' . $term_slug . '<br>';
+//                ?>
             </h1>
         </a>
     </header>

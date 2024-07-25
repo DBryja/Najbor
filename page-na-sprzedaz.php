@@ -1,11 +1,19 @@
 <?php
 /* Template Name: Prace Na Sprzedaż */
 
-get_header(); ?>
+get_header();
+$language = get_site_language();
+
+$p1 = new stdClass();
+$p1->pl = get_field('p1_pl');
+$p1->en = get_field('p1_en');
+$p1->fr = get_field('p1_fr');
+?>
 
 <div class="content-area">
 	<main class="site-main">
 		<h1><?php the_title(); ?></h1>
+        <p><?php echo esc_html($p1->$language) ?></p>
 
 		<?php
 		// WP_Query zapytanie
@@ -14,7 +22,7 @@ get_header(); ?>
 			'meta_query' => [
 				[
 					'key' => 'na_sprzedaz',
-					'value' => '1', // Zakładając, że wartość True jest zapisywana jako '1'
+					'value' => '1', // True zapisywane jest jako 1
 					'compare' => '='
 				]
 			]
@@ -35,8 +43,9 @@ get_header(); ?>
 				</article><!-- #post-## -->
 			<?php endwhile;
 			wp_reset_postdata();
-		else : ?>
-			<p><?php esc_html_e( 'Nie znaleziono prac na sprzedaż.', 'text-domain' ); ?></p>
+		else :
+            echo '<p> . esc_html($p1->$language) . </p>';
+            ?>
 		<?php endif; ?>
 	</main><!-- .site-main -->
 </div><!-- .content-area -->

@@ -19,20 +19,12 @@ function najbor_register_scripts(){
 }
 add_action("wp_enqueue_scripts", "najbor_register_scripts");
 
-//function custom_404_page() {
-//	if (is_404()) {
-//		include(get_template_directory() . '/404.php');
-//		exit;
-//	}
-//}
-//add_action('template_redirect', 'custom_404_page');
-
 // <<< UTILS
 function get_site_language() {
 	if (isset($_COOKIE['site_language'])) {
 		return $_COOKIE['site_language'];
 	}
-	return 'pl_PL'; // domyślny język
+	return 'pl'; // domyślny język
 }
 function get_katprace_categories_with_translations() {
 	$categories = get_terms([
@@ -49,8 +41,8 @@ function get_katprace_categories_with_translations() {
 			$name_en = get_field('en', 'katprace_' . $category_id);
 
 			$categories_with_translations[] = [
-				'name' => $category->name,
 				'slug' => $category->slug,
+				'name_pl' => $category->name,
 				'name_fr' => $name_fr,
 				'name_en' => $name_en,
 			];
@@ -64,6 +56,37 @@ function get_katprace_categories_with_translations() {
 // UTILS >>>
 
 // <<< REJESTROWANIE ACF I CPT
+function cptui_register_my_taxes_katprace() {
+	$labels = [
+		"name" => esc_html__( "Kategorie Prac", "custom-post-type-ui" ),
+		"singular_name" => esc_html__( "Kategorie Prac", "custom-post-type-ui" ),
+	];
+
+	$args = [
+		"label" => esc_html__( "Kategorie Prac", "custom-post-type-ui" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => true,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		'rewrite' => [ 'slug' => 'prace', 'with_front' => true ],
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"show_tagcloud" => false,
+		"rest_base" => "katprace",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"rest_namespace" => "wp/v2",
+		"show_in_quick_edit" => false,
+		"sort" => false,
+		"show_in_graphql" => false,
+	];
+	register_taxonomy( "katprace", [ "prace" ], $args );
+}
+add_action( 'init', 'cptui_register_my_taxes_katprace' );
+
 // REJESTROWANIE ACF I CPT >>>
 
 // <<< PRZEKSZTAŁCANIE LINKÓW
@@ -78,14 +101,14 @@ function custom_post_permalink( $post_link, $post ) {
 	return $post_link;
 }
 add_filter( 'post_type_link', 'custom_post_permalink', 10, 2 );
-
 function custom_taxonomy_permalink( $termlink, $term, $taxonomy ) {
-    if ( 'katprace' === $taxonomy ) {
-        $termlink = home_url( user_trailingslashit( 'katprace/' . $term->slug ) );
-    }
-    return $termlink;
+	if ( 'katprace' === $taxonomy ) {
+		$termlink = home_url( user_trailingslashit( 'prace/' . $term->slug ) );
+	}
+	return $termlink;
 }
 add_filter( 'term_link', 'custom_taxonomy_permalink', 10, 3 );
+
 // PRZEKSZTAŁCANIE LINKÓW >>>
 
 
