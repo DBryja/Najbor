@@ -1,0 +1,11 @@
+@import "reset";
+@import "variables";
+@import "colors";
+@import "typography";
+
+body{
+    background-color: #606060;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
