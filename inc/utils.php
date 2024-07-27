@@ -28,4 +28,21 @@ function get_katprace_categories_with_translations() {
 	}
 	return $categories_with_translations;
 }
+
+function get_custom_header_template() {
+	if (is_front_page() || is_home()) {
+		get_template_part('template-parts/header', 'home');
+	} elseif (is_page('kontakt')) {
+		get_template_part('template-parts/header', 'kontakt');
+	} elseif (is_post_type_archive('prace')) {
+		get_template_part('template-parts/header', 'prace');
+	} elseif (is_tax('katprace')) {
+		get_template_part('template-parts/header', 'katprace');
+	} elseif (is_singular("prace")){
+		get_template_part('template-parts/header', 'single-prace');
+	}
+	else {
+		get_template_part('template-parts/header', 'default');
+	}
+}
 ?>

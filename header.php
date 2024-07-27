@@ -12,109 +12,99 @@
 
     <?php
     wp_head();
-
-    function get_custom_header_template() {
-	    if (is_front_page() || is_home()) {
-		    get_template_part('template-parts/header', 'home');
-	    } elseif (is_page('kontakt')) {
-		    get_template_part('template-parts/header', 'kontakt');
-	    } elseif (is_post_type_archive('prace')) {
-		    get_template_part('template-parts/header', 'prace');
-	    } elseif (is_tax('katprace')) {
-		    get_template_part('template-parts/header', 'katprace');
-	    } elseif (is_singular("prace")){
-            get_template_part('template-parts/header', 'single-prace');
-        }
-        else {
-		    get_template_part('template-parts/header', 'default');
-	    }
-    }
+    $language = get_site_language();
+    $home = get_home_url();
     ?>
-
 </head>
 
 <body>
 <div class="follower"></div>
-
-<header class="header text-center">
-    <a class="site-title pt-lg-4 mb-0" href="<?php get_home_url(); ?>">
-        <?php echo get_bloginfo("name") ?>
-    </a>
-
-    <nav class="navbar navbar-expand-lg navbar-dark" >
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div id="navigation" class="collapse navbar-collapse flex-column" >
-<!--            --><?php
-//            if(function_exists('the_custom_logo')){
-//                $custom_logo_id = get_theme_mod('custom_logo');
-//                $logo = wp_get_attachment_image_src($custom_logo_id);
-//                $logo = $logo[0];
-//            }
-//            ?>
-<!--            <img class="mb-3 mx-auto logo" src="--><?php //echo $logo ?><!--" alt="logo" >-->
-
-	        <?php
-	        $language = get_site_language(); // Odczytaj język z ciasteczka
-	        ?>
-            <form id="language-form">
-                <label for="language-select"><?php _e('Choose Language', 'textdomain'); ?>:</label>
-                <select id="language-select">
-                    <option value="pl" <?php selected($language, 'pl'); ?>><?php _e('Polski', 'textdomain'); ?></option>
-                    <option value="fr" <?php selected($language, 'fr'); ?>><?php _e('Français', 'textdomain'); ?></option>
-                    <option value="en" <?php selected($language, 'en'); ?>><?php _e('English', 'textdomain'); ?></option>
-                </select>
-            </form>
-            <script>
-                document.getElementById('language-select').addEventListener('change', function() {
-                    var selectedLanguage = this.value;
-                    document.cookie = "site_language=" + selectedLanguage + "; path=/";
-                    location.reload();
-                });
-            </script>
-
-            <?php
-                wp_nav_menu(
-                    array(
-                        'menu' => 'main-menu',
-                        'container' => '',
-                        'theme_location' => 'main-menu',
-                        'items_wrap' => '<ul id="" class="navbar-nav flex-column text-sm-center text-md-left">%3$s</ul>'
-                    )
-                )
-            ?>
-
-<!--            <ul class="navbar-nav flex-column text-sm-center text-md-left">-->
-<!--                <li class="nav-item active">-->
-<!--                    <a class="nav-link" href="index.html"><i class="fas fa-home fa-fw mr-2"></i>Blog Home <span class="sr-only">(current)</span></a>-->
-<!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="post.html"><i class="fas fa-file-alt fa-fw mr-2"></i>Blog Post</a>-->
-<!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="page.html"><i class="fas fa-file-image fa-fw mr-2"></i>Blog Page</a>-->
-<!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="archive.html"><i class="fas fa-archive fa-fw mr-2"></i>Blog Archive</a>-->
-<!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link btn btn-primary" href="contact.html"><i class="fas fa-envelope fa-fw mr-2"></i>Contact Us</a>-->
-<!--                </li>-->
-<!--            </ul>-->
-            <hr>
-
-        </div>
-
-    </nav>
+<?php
+    if(is_front_page() || is_home()){
+	    get_template_part("template-parts/header", "animation");
+    }
+?>
+<header class="header">
+    <div class="logo">
+        <img src="<?php echo get_template_directory_uri()?>/assets/images/logo.png" alt="">
+    </div>
+    <div class="header__menu">
+        Menu
+    </div>
 </header>
+<div class="menu">
+    <ul class="menu__list">
+        <li class="menu__item"><a href="<?php echo $home?>/">home</a></li>
+        <li class="menu__item" class="prace">prace</li>
+        <li class="menu__item"><a href="<?php echo $home?>/kontakt">kontakt</a></li>
+        <li class="menu__item"><a href="<?php echo $home?>/na-sprzedaz">na sprzedaż</a></li>
+        <li class="menu__item"><a href="<?php echo $home?>/prace/sytuacje">sytuacje</a></li>
+    </ul>
+	<?php get_template_part("template-parts/header", "language-selector") ?>
+<!--    <ul class="hidden">-->
+<!--		--><?php
+//		$categories = get_katprace_categories_with_translations();
+//		foreach ($categories as $category) {
+//			$name = $category['name_' . $language];
+//			$slug = $category['slug'];
+//			echo "<li><a href='$home/prace/$slug'>$name</a></li>";
+//		}
+//		?>
+<!--    </ul>-->
+</div>
+<script>
+    const menu = document.querySelector('.menu');
+    const button = document.querySelector('.header__menu');
+    const prace = document.querySelector('.prace');
 
-<div class="main-wrapper">
-    <header class="page-title theme-bg-light text-center gradient py-5">
+    const ease = 'circ';
+    const duration = 0.1;
+
+    function menuItemsEnter(){
+        gsap.set('.menu__item', {
+            y: "0",
+            opacity: 1,
+        });
+        gsap.from('.menu__item', {
+            duration: duration,
+            y: "1rem",
+            opacity: 0,
+            stagger: duration,
+            ease: ease
+        })
+    }
+    function menuItemsLeave(){
+        gsap.to('.menu__item', {
+            duration: duration,
+            y: "-1rem",
+            opacity: 0,
+            stagger: duration,
+            ease: ease,
+        })
+    }
+
+    // prace.addEventListener('click', () => {
+    //     prace.querySelector('ul').classList.toggle('hidden');
+    // });
+
+    button.addEventListener('click', () => {
+        menu.classList.add('active');
+        menu.classList.remove("inactive");
+        menuItemsEnter();
+    });
+    menu.addEventListener('click', (e) => {
+        if(e.target === menu){
+            menuItemsLeave();
+                menu.classList.remove('active');
+                menu.classList.add("inactive");
+        }
+    });
+</script>
+
+<main class="main-wrapper">
+    <div class="page-title theme-bg-light text-center gradient py-5">
             <h1 class="heading">
 	                <?php get_custom_header_template(); ?>
             </h1>
-    </header>
+    </div>
 

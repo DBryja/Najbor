@@ -2,10 +2,14 @@
 @import "variables";
 @import "colors";
 @import "typography";
+@import "logo-anim";
+@import "menu";
 
 body{
-    background-color: #606060;
+    background-color: $white;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    overflow:hidden;
+    @include playfair-display;
 }

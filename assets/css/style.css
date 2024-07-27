@@ -46,11 +46,267 @@ input {
   border-radius: 0;
 }
 
+h1 {
+  font-size: 6rem;
+  color: black;
+  font-weight: 500;
+}
+
+h2 {
+  font-size: 2rem;
+  color: black;
+  font-weight: 500;
+}
+h2.--heading {
+  font-size: 6rem;
+}
+
+h3 {
+  font-size: 6rem;
+  font-weight: 500;
+}
+
+h4 {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+p {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+li {
+  font-size: 4rem;
+  font-weight: 500;
+  color: #F8F9F3;
+  text-transform: uppercase;
+  text-align: center;
+  width: fit-content;
+  cursor: pointer;
+  opacity: 1;
+}
+li:hover {
+  color: #FE0000;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+a :visited {
+  color: inherit;
+}
+
+span {
+  font-size: 1.25rem;
+}
+span.--heading {
+  font-weight: 500;
+}
+
+input {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+:root {
+  --logo-width: 30%;
+  --exit-width: 128px;
+}
+@media (max-width: 1200px) {
+  :root {
+    --logo-width: 50%;
+  }
+}
+@media (max-width: 768px) {
+  :root {
+    --exit-width: 92px;
+  }
+}
+
+.anim-wrapper {
+  width: var(--logo-width);
+  aspect-ratio: 1/1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.anim-wrapper.exit {
+  left: 32px;
+  top: 32px;
+  transform: translate(0, 0);
+}
+@media (max-width: 1200px) {
+  .anim-wrapper {
+    --width: 50%;
+    transform: translate(-48%, -50%);
+  }
+}
+
+.anim__item {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.anim__item img {
+  width: 100%;
+}
+.anim .autobus {
+  width: 100%;
+  top: 85%;
+  left: -8%;
+  rotate: 2deg;
+}
+.anim .samolot {
+  width: 90%;
+  top: 18%;
+  left: 90%;
+  rotate: 35deg;
+}
+.anim .logo {
+  aspect-ratio: 1/1;
+  width: 100%;
+  background-color: #F8F9F3;
+  position: relative;
+  --rotate: 12deg;
+  --x: -50%;
+}
+.anim .logo::before {
+  content: "";
+  display: block;
+  width: 15%;
+  height: 25%;
+  position: absolute;
+  bottom: 12%;
+  right: 5%;
+  background-color: #F8F9F3;
+  z-index: -1;
+}
+.anim .logo::after {
+  content: "";
+  display: block;
+  width: 18.2%;
+  aspect-ratio: 10/21;
+  position: absolute;
+  top: 55%;
+  left: 92%;
+  rotate: var(--rotate);
+  z-index: -2;
+  background-image: url("../images/szpieg.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: translateX(var(--x));
+}
+.anim .logo img {
+  aspect-ratio: 1/1;
+  width: 100%;
+  height: auto;
+}
+
+.header {
+  height: auto;
+  padding: 32px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+}
+.header .logo {
+  aspect-ratio: 1/1;
+  width: var(--exit-width);
+  position: relative;
+  --rotate: 12deg;
+  --x: -50%;
+}
+.header .logo::before {
+  content: "";
+  display: block;
+  width: 15%;
+  height: 25%;
+  position: absolute;
+  bottom: 12%;
+  right: 5%;
+  background-color: #F8F9F3;
+  z-index: -1;
+}
+.header .logo::after {
+  content: "";
+  display: block;
+  width: 18.2%;
+  aspect-ratio: 10/21;
+  position: absolute;
+  top: 55%;
+  left: 92%;
+  rotate: var(--rotate);
+  z-index: -2;
+  background-image: url("../images/szpieg.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: translateX(var(--x));
+}
+.header .logo:hover {
+  cursor: pointer;
+  --x: 0;
+  --rotate: 0deg;
+}
+.header .logo::after {
+  transition: transform 0.5s cubic-bezier(0.47, 0, 0.23, 1.38), rotate 0.5s cubic-bezier(0.47, 0, 0.23, 1.38);
+}
+.header .logo img {
+  aspect-ratio: 1/1;
+  width: 100%;
+  height: auto;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu {
+  font-size: 5rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  width: 100dvw;
+  height: 100dvh;
+  opacity: 0;
+  transition: background-color 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  pointer-events: none;
+  display: flex;
+  background-color: transparent;
+}
+.menu.active {
+  background-color: black;
+  opacity: 1;
+  pointer-events: all;
+}
+.menu.inactive {
+  background-color: transparent;
+  opacity: 0;
+  pointer-events: none;
+}
+
 body {
-  background-color: #606060;
+  background-color: #F8F9F3;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  overflow: hidden;
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 
 /*# sourceMappingURL=style.css.map */
