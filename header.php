@@ -18,7 +18,10 @@
 </head>
 
 <body>
-<div class="follower"></div>
+<div class="cursor">
+    <div class="cursor__arrow"></div>
+    <div class="cursor__image"></div>
+</div>
 <?php
     if(is_front_page() || is_home()){
 	    get_template_part("template-parts/header", "animation");
@@ -32,79 +35,100 @@
         Menu
     </div>
 </header>
-<div class="menu">
-    <ul class="menu__list">
-        <li class="menu__item"><a href="<?php echo $home?>/">home</a></li>
-        <li class="menu__item" class="prace">prace</li>
-        <li class="menu__item"><a href="<?php echo $home?>/kontakt">kontakt</a></li>
-        <li class="menu__item"><a href="<?php echo $home?>/na-sprzedaz">na sprzedaż</a></li>
-        <li class="menu__item"><a href="<?php echo $home?>/prace/sytuacje">sytuacje</a></li>
+<div class="menu inactive">
+    <ul class="menu__list main">
+        <li class="menu__item item"><a href="<?php echo $home?>/">home</a></li>
+        <li class="menu__item item prace">prace</li>
+        <li class="menu__item item"><a href="<?php echo $home?>/kontakt">kontakt</a></li>
+        <li class="menu__item item"><a href="<?php echo $home?>/na-sprzedaz">na sprzedaż</a></li>
+        <li class="menu__item item"><a href="<?php echo $home?>/prace/sytuacje">sytuacje</a></li>
+	    <?php get_template_part("template-parts/header", "language-selector") ?>
     </ul>
-	<?php get_template_part("template-parts/header", "language-selector") ?>
-<!--    <ul class="hidden">-->
-<!--		--><?php
-//		$categories = get_katprace_categories_with_translations();
-//		foreach ($categories as $category) {
-//			$name = $category['name_' . $language];
-//			$slug = $category['slug'];
-//			echo "<li><a href='$home/prace/$slug'>$name</a></li>";
-//		}
-//		?>
-<!--    </ul>-->
+    <ul class="menu__list menu__list hidden categories">
+		<?php
+		$categories = get_katprace_categories_with_translations();
+		foreach ($categories as $category) {
+			$name = $category['name_' . $language];
+			$slug = $category['slug'];
+			echo "<li class='menu__item item'><a href='$home/prace/$slug'>$name</a></li>";
+		}
+		?>
+    </ul>
 </div>
 <script>
-    const menu = document.querySelector('.menu');
+    const menuContainer = document.querySelector('.menu');
     const button = document.querySelector('.header__menu');
     const prace = document.querySelector('.prace');
+    const mainMenu = document.querySelector('ul.main');
+    const subMenu = document.querySelector('ul.categories');
 
+    const selector = ".menu__list:not([hidden]) .menu__item"
     const ease = 'circ';
     const duration = 0.1;
 
-    function menuItemsEnter(){
-        gsap.set('.menu__item', {
-            y: "0",
-            opacity: 1,
+    function menuItemsEnter({reverse}={reverse: false}) {
+        reverse = reverse ? -1 : 1;
+        return new Promise((resolve) => {
+            gsap.set(selector, {
+                y: "0",
+                opacity: 1,
+            });
+            gsap.from(selector, {
+                duration: duration,
+                y: "1rem",
+                opacity: 0,
+                stagger: reverse * duration/2,
+                ease: ease,
+                onComplete: resolve
+            });
         });
-        gsap.from('.menu__item', {
-            duration: duration,
-            y: "1rem",
-            opacity: 0,
-            stagger: duration,
-            ease: ease
-        })
     }
-    function menuItemsLeave(){
-        gsap.to('.menu__item', {
-            duration: duration,
-            y: "-1rem",
-            opacity: 0,
-            stagger: duration,
-            ease: ease,
-        })
+    function menuItemsLeave({reverse}={reverse: false}){
+        reverse = reverse ? -1 : 1;
+        return new Promise((resolve) => {
+            gsap.to(selector, {
+                duration: duration/2,
+                y: "-1rem",
+                opacity: 0,
+                stagger: reverse*duration/1.5,
+                ease: ease,
+                onComplete: resolve
+            });
+        });
+    }
+    function toggleMenu(){
+        menuContainer.classList.toggle('active');
+        menuContainer.classList.toggle("inactive");
+    }
+    function toggleMenuOptions(){
+        mainMenu.classList.toggle('hidden');
+        subMenu.classList.toggle('hidden');
     }
 
-    // prace.addEventListener('click', () => {
-    //     prace.querySelector('ul').classList.toggle('hidden');
-    // });
+    prace.addEventListener('click',async () => {
+        menuItemsLeave({reverse:true}).then(()=>{
+            menuItemsEnter({reverse:true});
+            toggleMenuOptions();
+            }
+        );
+    });
 
     button.addEventListener('click', () => {
-        menu.classList.add('active');
-        menu.classList.remove("inactive");
+        toggleMenu();
         menuItemsEnter();
     });
-    menu.addEventListener('click', (e) => {
-        if(e.target === menu){
-            menuItemsLeave();
-                menu.classList.remove('active');
-                menu.classList.add("inactive");
+    menuContainer.addEventListener('click', async (e) => {
+        if(e.target === menuContainer){
+            setTimeout(()=>{
+                toggleMenu();
+            }, 300);
+            await menuItemsLeave().then(()=>{
+                if(document.querySelector("ul.main").classList.contains("hidden"))
+                 toggleMenuOptions();
+            });
         }
     });
 </script>
 
 <main class="main-wrapper">
-    <div class="page-title theme-bg-light text-center gradient py-5">
-            <h1 class="heading">
-	                <?php get_custom_header_template(); ?>
-            </h1>
-    </div>
 
