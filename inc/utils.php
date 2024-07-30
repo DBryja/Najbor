@@ -18,6 +18,7 @@ function get_katprace_categories_with_translations() {
 			$name_fr = get_field('fr', 'katprace_' . $category_id);
 			$name_en = get_field('en', 'katprace_' . $category_id);
 			$thumbnail = get_field('thumbnail', 'katprace_' . $category_id);
+			$order = get_field('order', 'katprace_' . $category_id);
 
 			$categories_with_translations[] = [
 				'slug' => $category->slug,
@@ -25,9 +26,14 @@ function get_katprace_categories_with_translations() {
 				'name_fr' => $name_fr,
 				'name_en' => $name_en,
 				'thumbnail_url' => $thumbnail,
+				'order' => $order,
 			];
 		}
 	}
+	usort($categories_with_translations, function($a, $b) {
+		return $a['order'] <=> $b['order'];
+	});
+
 	return $categories_with_translations;
 }
 

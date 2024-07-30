@@ -26,6 +26,8 @@
     height: 18rem;
     filter: brightness(2);
     z-index: $z-cursor-image;
+    transform: skewX(0) skew(0);
+    will-change: skewX, skew;
   }
   &__arrow{
     z-index: $z-cursor-icon;
@@ -39,15 +41,11 @@
 body:has(.cursor--click:hover){
   .cursor{
     width: 3rem;
-    //background-color: $red;
-    //opacity: 0.2;
   }
 }
 
 body:has(.cursor--img:hover){
   .cursor{
     width: 3rem;
-    //background-color: $blue;
-    //opacity: 0.2;
   }
 }

@@ -33,7 +33,7 @@ wp_footer();
         function updateMouseAttributes(e){
             mouseX = e.clientX;
             const deltaX = mouseX - lastMouseX;
-            speed = Math.sqrt(deltaX * deltaX);
+            speed = Math.min(Math.abs(deltaX), 8);
             directionX = deltaX / speed || 0;
             lastMouseX = mouseX;
             applyTransform();

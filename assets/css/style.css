@@ -348,6 +348,8 @@ input {
   height: 18rem;
   filter: brightness(2);
   z-index: 92;
+  transform: skewX(0) skew(0);
+  will-change: skewX, skew;
 }
 .cursor__arrow {
   z-index: 91;

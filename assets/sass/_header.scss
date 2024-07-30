@@ -106,6 +106,7 @@ $szpiegPath: "../images/szpieg.png";
   position: fixed;
   overflow: hidden;
   top: 0;
+  //z-index: $z-header;
   .logo {
     aspect-ratio: 1/1;
     width: var(--exit-width);
