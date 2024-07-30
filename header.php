@@ -31,26 +31,27 @@
     <div class="logo">
         <img src="<?php echo get_template_directory_uri()?>/assets/images/logo.png" alt="">
     </div>
-    <div class="header__menu">
+    <div class="header__menu cursor--click">
         Menu
     </div>
 </header>
 <div class="menu inactive">
     <ul class="menu__list main">
-        <li class="menu__item item"><a href="<?php echo $home?>/">home</a></li>
-        <li class="menu__item item prace">prace</li>
-        <li class="menu__item item"><a href="<?php echo $home?>/kontakt">kontakt</a></li>
-        <li class="menu__item item"><a href="<?php echo $home?>/na-sprzedaz">na sprzedaż</a></li>
-        <li class="menu__item item"><a href="<?php echo $home?>/prace/sytuacje">sytuacje</a></li>
+        <li class="menu__item cursor--click item"><a href="<?php echo $home?>/">home</a></li>
+        <li class="menu__item cursor--click item prace">prace</li>
+        <li class="menu__item cursor--click item"><a href="<?php echo $home?>/kontakt">kontakt</a></li>
+        <li class="menu__item cursor--click item"><a href="<?php echo $home?>/na-sprzedaz">na sprzedaż</a></li>
+        <li class="menu__item cursor--click item"><a href="<?php echo $home?>/prace/sytuacje">sytuacje</a></li>
 	    <?php get_template_part("template-parts/header", "language-selector") ?>
     </ul>
-    <ul class="menu__list menu__list hidden categories">
+    <ul class="menu__list hidden categories">
 		<?php
 		$categories = get_katprace_categories_with_translations();
 		foreach ($categories as $category) {
 			$name = $category['name_' . $language];
 			$slug = $category['slug'];
-			echo "<li class='menu__item item'><a href='$home/prace/$slug'>$name</a></li>";
+			$thumbnail_url = $category['thumbnail_url'];
+			echo "<li class='menu__item cursor--img item' data-thumbnail='$thumbnail_url'><a href='$home/prace/$slug'>$name</a></li>";
 		}
 		?>
     </ul>

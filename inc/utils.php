@@ -17,12 +17,14 @@ function get_katprace_categories_with_translations() {
 			$category_id = $category->term_id;
 			$name_fr = get_field('fr', 'katprace_' . $category_id);
 			$name_en = get_field('en', 'katprace_' . $category_id);
+			$thumbnail = get_field('thumbnail', 'katprace_' . $category_id);
 
 			$categories_with_translations[] = [
 				'slug' => $category->slug,
 				'name_pl' => $category->name,
 				'name_fr' => $name_fr,
 				'name_en' => $name_en,
+				'thumbnail_url' => $thumbnail,
 			];
 		}
 	}

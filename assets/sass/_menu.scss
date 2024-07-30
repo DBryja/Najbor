@@ -43,4 +43,15 @@
     padding: 0;
     margin: 0;
   }
+
+  &__list.categories{
+    .menu__item{
+      position: relative;
+      z-index: 1;
+      &:hover{
+        z-index: $z-item-overlay;
+        color: $red;
+      }
+    }
+  }
 }
