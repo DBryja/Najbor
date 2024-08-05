@@ -274,7 +274,7 @@ input {
   width: 100dvw;
   height: 100dvh;
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
   pointer-events: none;
   display: flex;
   background-image: url("../images/menu-bg-sm.png");
@@ -349,7 +349,7 @@ input {
   filter: brightness(2);
   z-index: 92;
   transform: skewX(0) skew(0);
-  will-change: skewX, skew;
+  will-change: skewX, skew, filter, width, background-image;
 }
 .cursor__arrow {
   z-index: 91;

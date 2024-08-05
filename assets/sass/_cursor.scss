@@ -27,7 +27,7 @@
     filter: brightness(2);
     z-index: $z-cursor-image;
     transform: skewX(0) skew(0);
-    will-change: skewX, skew;
+    will-change: skewX, skew, filter, width, background-image;
   }
   &__arrow{
     z-index: $z-cursor-icon;
