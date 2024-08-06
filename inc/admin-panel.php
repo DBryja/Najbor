@@ -89,5 +89,186 @@ function disable_posts_support() {
 }
 add_action('init', 'disable_posts_support');
 
+function enforce_thumbnail(){
+    global $pagenow;
+
+    if ($pagenow === 'post-new.php' || $pagenow === 'post.php') {
+		?>
+		<script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', function() {
+				const thumbnail = document.querySelector('#postimagediv');
+				thumbnail.style.display = 'none';
+			});
+		</script>
+	    <?php
+	}
+}
+function enforce_single_category_radio_buttons() {
+	global $pagenow;
+	$post_type = isset($_GET['post_type']) ? $_GET['post_type'] : (isset($_GET['post']) ? get_post_type($_GET['post']) : '');
+
+	if (($pagenow === 'post-new.php' && $post_type === 'prace') || ($pagenow === 'post.php' && $post_type === 'prace')) {
+		?>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+                const checkboxes = document.querySelectorAll('#katpracechecklist input[type="checkbox"]');
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.type = 'radio';
+                    checkbox.name = 'tax_input[katprace][]';
+                });
+
+                if (checkboxes.length > 0) {
+                    checkboxes[0].required = true;
+                }
+
+                document.getElementById('post').addEventListener('submit', function(e) {
+                    const checkedCheckboxes = document.querySelectorAll('#katpracechecklist input[type="radio"]:checked');
+                    if (checkedCheckboxes.length !== 1) {
+                        alert('Proszę wybrać jedną z kategorii.');
+                        e.preventDefault();
+                        return false;
+                    }
+                });
+            });
+        </script>
+		<?php
+	}
+}
+add_action('admin_footer', 'enforce_single_category_radio_buttons');
+
+
+function enforce_single_category_validation($post_id, $post, $update) {
+	if ($post->post_type != 'prace') {
+		return;
+	}
+
+	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+		return;
+	}
+
+	$categories = isset($_POST['tax_input']['katprace']) ? $_POST['tax_input']['katprace'] : [];
+
+	// Remove the default '0' value
+	$categories = array_filter($categories, function($value) {
+		return $value !== '0';
+	});
+
+	if (count($categories) !== 1) {
+		set_transient('enforce_single_category_error', 'Please select exactly one category.', 10);
+		// Redirect back to the edit screen
+		wp_safe_redirect(add_query_arg(array('post' => $post_id, 'action' => 'edit'), admin_url('post.php')));
+		exit;
+	}
+}
+add_action('save_post', 'enforce_single_category_validation', 10, 3);
+
+
+function display_enforce_single_category_error() {
+	if ($error = get_transient('enforce_single_category_error')) {
+		?>
+        <div class="notice notice-error is-dismissible">
+            <p><?php echo $error; ?></p>
+        </div>
+		<?php
+		delete_transient('enforce_single_category_error');
+	}
+}
+add_action('admin_notices', 'display_enforce_single_category_error');
+
+function enforce_single_thumbnail(){
+    global $pagenow;
+
+    if ($pagenow === 'post-new.php' || $pagenow === 'post.php') {
+        ?>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+                const thumbnailInput = document.querySelector('#postimagediv input');
+                thumbnailInput.required = true;
+            });
+        </script>
+        <?php
+    }
+}
+add_action('admin_footer', 'enforce_single_thumbnail');
+function output_custom_fields_js_data() {
+	global $post;
+
+	// Only run this on the post edit screen
+	if (!is_admin() || !in_array(get_current_screen()->base, array('post', 'edit'))) {
+		return;
+	}
+
+	// Check if the post type is 'prace'
+	if (get_post_type($post->ID) !== 'prace') {
+		return;
+	}
+
+	// Fetch custom fields data
+	$custom_fields = array(
+		'tytul' => get_field('tytul', $post->ID),
+		'Obraz' => get_field('Obraz', $post->ID),
+		'na_sprzedaz' => get_field('na_sprzedaz', $post->ID),
+		'opis' => get_field('opis', $post->ID),
+		'metoda' => get_field('metoda', $post->ID),
+		'wymiary' => get_field('wymiary', $post->ID),
+		'oprawa' => get_field('oprawa', $post->ID),
+		'rok_powstania' => get_field('rok_powstania', $post->ID),
+		'tytul_en' => get_field('tytul_en', $post->ID),
+		'opis_en' => get_field('opis_en', $post->ID),
+		'metoda_en' => get_field('metoda_en', $post->ID),
+		'oprawa_en' => get_field('oprawa_en', $post->ID),
+		'tytul_fr' => get_field('tytul_fr', $post->ID),
+		'opis_fr' => get_field('opis_fr', $post->ID),
+		'metoda_fr' => get_field('metoda_fr', $post->ID),
+		'oprawa_fr' => get_field('oprawa_fr', $post->ID)
+	);
+
+	// Output the custom fields data as a JavaScript variable
+	echo '<script type="text/javascript">';
+	echo 'var customFieldsData = ' . json_encode($custom_fields) . ';';
+//    echo 'console.log(customFieldsData);';
+	echo '</script>';
+}
+add_action('admin_footer', 'output_custom_fields_js_data');
+function fill_custom_fields_js() {
+	global $post;
+	// Only run this on the post edit screen
+	if (!is_admin() || !in_array(get_current_screen()->base, array('post', 'edit')))
+		return;
+	// Check if the post type is 'prace'
+	if (get_post_type($post->ID) !== 'prace')
+		return;
+	?>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log(customFieldsData);
+            if (typeof customFieldsData !== 'undefined') {
+                for (var key in customFieldsData) {
+                    if (customFieldsData.hasOwnProperty(key)) {
+                        var fieldValue = customFieldsData[key];
+                        console.log(fieldValue);
+                        var fieldDiv = document.querySelector('div[data-name="' + key + '"]');
+                        if (fieldDiv) {
+                            var input = fieldDiv.querySelector('input, textarea, img');
+                            if (input) {
+                                if (input.type === 'checkbox') {
+                                    input.checked = fieldValue ? true : false;
+                                } else if (input.name === 'acf[field_668f90d3a5cc7]') {
+                                    input.value = fieldValue.ID;
+                                } else {
+                                    input.value = fieldValue.replace(/<\/[^>]+(>|$)/g, "");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+	<?php
+}
+add_action('admin_footer', 'fill_custom_fields_js');
+
 
 ?>
