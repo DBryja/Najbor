@@ -18,9 +18,10 @@ function najbor_register_scripts(){
 	wp_enqueue_script('gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js', array(), '3.4.1', true);
 	wp_enqueue_script('gsap-motion-path', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js', array(), '3.4.1', true);
 	wp_enqueue_script('main-js', get_template_directory_uri() . '/assets/js/main.js', array(), null, true);
+	wp_enqueue_script('cursor-js', get_template_directory_uri() . '/assets/js/cursor.js', array("gsap", "gsap-motion-path"), null, true);
 
 	if(is_front_page() || is_home()){
-	wp_enqueue_script("logo-animation", get_template_directory_uri() . "/assets/js/logo-animation.js", array(), null, true);
+	wp_enqueue_script("logo-animation", get_template_directory_uri() . "/assets/js/logo-animation.js", array("gsap", "gsap-motion-path"), null, true);
 	}
 }
 add_action("wp_enqueue_scripts", "najbor_register_scripts");
