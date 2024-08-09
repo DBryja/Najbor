@@ -9,19 +9,19 @@ $szpiegPath: "../images/szpieg.png";
 }
 @mixin szpieg {
   position: relative;
-  --rotate: 12deg;
-  --x: -50%;
-  &::before {
-    content: "";
-    display: block;
-    width: 15%;
-    height: 25%;
-    position: absolute;
-    bottom: 12%;
-    right: 5%;
-    background-color: $white;
-    z-index: -1;
-  }
+  --rotate: -12deg;
+  --x: -20%;
+  //&::before {
+  //  content: "";
+  //  display: block;
+  //  width: 15%;
+  //  height: 25%;
+  //  position: absolute;
+  //  bottom: 12%;
+  //  right: 5%;
+  //  background-color: $white;
+  //  z-index: -1;
+  //}
   &::after {
     content: "";
     display: block;

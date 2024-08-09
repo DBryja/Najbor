@@ -5,7 +5,9 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100dvw;
   height: 100dvh;
   opacity: 0;

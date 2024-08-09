@@ -53,4 +53,35 @@ function get_custom_header_template() {
 		get_template_part('template-parts/header', 'default');
 	}
 }
+
+function get_praca_data($ID){
+	$custom_fields = array(
+		'ID' => $ID,
+		'obraz' => get_field('Obraz', $ID),
+		'na_sprzedaz' => get_field('na_sprzedaz', $ID),
+		'rok_powstania' => get_field('rok_powstania', $ID),
+		'wymiary' => get_field('wymiary', $ID),
+		"tytul" => array(
+			"pl" => get_field("tytul", $ID),
+			"en" => get_field('tytul_en', $ID),
+			"fr" => get_field('tytul_fr', $ID),
+		),
+		"opis" => array(
+			"pl" => get_field('opis', $ID),
+			"en" => get_field('opis_en', $ID),
+			"fr" => get_field('opis_fr', $ID),
+		),
+		"metoda" => array(
+			"pl" => get_field('metoda', $ID),
+			"en" => get_field('metoda_en', $ID),
+			"fr" => get_field('metoda_fr', $ID),
+		),
+		"oprawa" => array(
+			"pl" => get_field('oprawa', $ID),
+			"en" => get_field('oprawa_en', $ID),
+			"fr" => get_field('oprawa_fr', $ID),
+		)
+	);
+	return $custom_fields;
+}
 ?>

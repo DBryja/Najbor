@@ -4,6 +4,7 @@
 @import "typography";
 @import "header";
 @import "menu";
+@import "single";
 @import "cursor";
 
 body{
@@ -11,6 +12,14 @@ body{
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    overflow:hidden;
+    //overflow:hidden;
     @include playfair-display;
+}
+
+
+main{
+    margin-top: 128px;
+    margin-bottom: 128px;
+    display: grid;
+    width: 100%;
 }
