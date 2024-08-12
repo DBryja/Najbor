@@ -1,51 +1,86 @@
-<?php get_header(); ?>
 
-<div class="container">
-    <?php while ( have_posts() ) : the_post(); ?>
-        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-            <header class="entry-header">
-                <h1 class="entry-title"><?php the_title(); ?></h1>
-            </header>
 
-                <picture>
-                    <source srcset="<?php the_post_thumbnail_url('full');?>.webp" type="image/webp">
-                    <source srcset="<?php the_post_thumbnail_url('full'); ?>" type="image/jpeg">
-                    <img class="img-fluid" src="<?php the_post_thumbnail_url('full'); ?>" alt="image">
-                </picture>
+<?php
+/**
+ * Template Name: Custom Template
+ *
+ * A custom template for displaying specific content.
+ */
+get_header();
+$lang = get_site_language();
+$labels = array(
+	'metoda' => array(
+		'pl' => 'Metoda',
+		'en' => 'Method',
+		'fr' => 'Méthode'
+	),
+	'wymiary' => array(
+		'pl' => 'Wymiary',
+		'en' => 'Dimensions',
+		'fr' => 'Dimensions'
+	),
+	'oprawa' => array(
+		'pl' => 'Oprawa',
+		'en' => 'Framing',
+		'fr' => 'Encadrement'
+	),
+	'rok_powstania' => array(
+		'pl' => 'Rok powstania',
+		'en' => 'Year of creation',
+		'fr' => 'Année de création'
+	)
+);
+$languages = [ 'pl', 'en', 'fr' ];
+function get_value_with_fallback( $acf, $field, $lang) {
+	global $languages;
+	if (!empty($acf[$field][$lang]) && is_string($acf[$field][$lang])) {
+		return $acf[$field][$lang];
+	}
+    elseif (!empty($acf[$field]) && is_string($acf[$field])) {
+		return $acf[$field];
+	}
+	else {
+		foreach ( $languages as $fallback_lang ) {
+			if (!empty($acf[$field][$fallback_lang] ) && is_string($acf[$field][$fallback_lang] ) )
+				return $acf[$field][$fallback_lang];
+		}
+	}
+	return '';
+}
+?>
 
-            <div class="entry-content">
-                <?php the_content(); ?>
-
-                <?php
-                // Wczytaj dane z custom fields
-//                $autor_pracy = get_post_meta( get_the_ID(), 'autor_pracy', true );
-//                $data_wykonania = get_post_meta( get_the_ID(), 'data_wykonania', true );
-//                $opis_pracy = get_post_meta( get_the_ID(), 'opis_pracy', true );
-                $ID = get_the_ID();
-                $metoda = get_field('metoda', $ID );
-                $data_wykonania = get_field('rok_powstania', $ID );
-                $opis_pracy = get_field('opis', $ID );
-                $na_sprzedaz = get_field("na_sprzedaz", $ID);
-                echo '<h2>Informacje o pracy</h2>';
-
-                // Sprawdź, czy dane są dostępne i wyświetl je
-                if ( !empty( $metoda ) ) {
-                    echo '<p><strong>Metoda:</strong> ' . esc_html( $metoda ) . '</p>';
-                }
-
-                if ( !empty( $data_wykonania ) ) {
-                    echo '<p><strong>Data wykonania:</strong> ' . esc_html( $data_wykonania ) . '</p>';
-                }
-
-                if ( !empty( $opis_pracy ) ) {
-                    echo '<p><strong>Opis:</strong> ' . wp_kses_post($opis_pracy) . '</p>';
-                }
-                if ( !empty( $opis_pracy ) ) {
-	                echo '<p><strong>Na sprzedaż:</strong> ' . esc_html($na_sprzedaz) . '</p>';
-                }
-                ?>
-            </div>
-    <?php endwhile; ?>
+<?php while ( have_posts() ) : the_post();
+$ID = get_the_ID() ? get_the_ID() : the_ID();
+$acf = get_praca_data( $ID );
+$orientation = $acf["obraz"]["width"] > $acf["obraz"]["height"]*1.3 ? "landscape" : "portrait";
+?>
+<div class="single <?php echo $orientation?>">
+    <article id="post-<?php echo $ID; ?>" <?php post_class(); ?>>
+        <div class="single__image">
+            <picture>
+                <source srcset="<?php echo $acf["obraz"]["url"];?>.webp" type="image/webp">
+                <source srcset="<?php echo $acf["obraz"]["url"]; ?>" type="image/jpeg">
+                <img class="img-fluid" src="<?php echo $acf["obraz"]["url"]; ?>" alt="<?php echo $acf["obraz"]["alt"]?>">
+            </picture>
+        </div>
+        <div class="single__details">
+            <h2><?php echo get_value_with_fallback($acf, "tytul", $lang);?></h2>
+            <p><?php echo strip_tags(get_value_with_fallback($acf, "opis", $lang));?></p>
+            <table>
+				<?php
+				foreach ( array_keys($labels) as $field ) {
+					$value = get_value_with_fallback( $acf, $field, $lang);
+					if (!empty($value)) {
+						echo "<tr>
+                                <td>{$labels[$field][$lang]}:</td>
+                                <td class='--heading'>{$value}</td>
+                              </tr>";
+					}
+				}
+				?>
+            </table>
+        </div>
+		<?php endwhile; ?>
 </div>
 
 <?php get_footer(); ?>

@@ -60,19 +60,13 @@ function get_value_with_fallback( $acf, $field, $lang) {
             <picture>
                 <source srcset="<?php echo $acf["obraz"]["url"];?>.webp" type="image/webp">
                 <source srcset="<?php echo $acf["obraz"]["url"]; ?>" type="image/jpeg">
-                <img class="img-fluid" src="<?php echo $acf["obraz"]["url"]; ?>" alt="image">
+                <img class="img-fluid" src="<?php echo $acf["obraz"]["url"]; ?>" alt="<?php echo $acf["obraz"]["alt"]?>">
             </picture>
         </div>
 		<div class="single__details">
-            <script>
-                console.log(<?php echo json_encode($acf)?>);
-            </script>
-            <div>
-                <h2><?php echo get_value_with_fallback($acf, "tytul", $lang)?></h2>
-                <p><?php  echo get_value_with_fallback($acf, "opis", $lang)?></p>
-            </div>
+            <h2><?php echo get_value_with_fallback($acf, "tytul", $lang);?></h2>
+            <p><?php echo strip_tags(get_value_with_fallback($acf, "opis", $lang));?></p>
             <table>
-<!--                //TODO: make fallback for missing translations-->
                 <?php
                 foreach ( array_keys($labels) as $field ) {
 	                $value = get_value_with_fallback( $acf, $field, $lang);
