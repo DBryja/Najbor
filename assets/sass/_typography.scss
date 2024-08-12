@@ -1,3 +1,4 @@
+@import "mixins";
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..900&display=swap');
 
 @mixin playfair-display {
@@ -5,6 +6,18 @@
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+}
+html{
+  font-size: 12px;
+  @include breakpoint("lg") {
+    font-size: 16px;
+  }
+  @include breakpoint("xl") {
+    font-size: 18px;
+  }
+  @include breakpoint("2xl") {
+    font-size: 20px;
+  }
 }
 
 h1 {
@@ -32,6 +45,7 @@ p{
   font-family: "Segoe UI", sans-serif;
   font-size: 1.25rem;
   font-weight: 400;
+  line-height: 1.25;
 }
 li{
   font-size: 4rem;
