@@ -14,7 +14,7 @@
   transition: opacity 0.4s ease-in-out;
   pointer-events: none;
   display: flex;
-  //z-index: $z-cursor;
+  z-index: $z-menu;
   background-image: url('../images/menu-bg-sm.png');
   @include breakpoint(md){
     background-image: url('../images/menu-bg-md.png');

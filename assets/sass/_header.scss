@@ -106,7 +106,7 @@ $szpiegPath: "../images/szpieg.png";
   position: fixed;
   overflow: hidden;
   top: 0;
-  //z-index: $z-header;
+  z-index: $z-header;
   .logo {
     aspect-ratio: 1/1;
     width: var(--exit-width);
@@ -124,5 +124,9 @@ $szpiegPath: "../images/szpieg.png";
       width: 100%;
       height: auto;
     }
+  }
+
+  h3{
+    mix-blend-mode: difference;
   }
 }

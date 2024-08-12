@@ -53,14 +53,15 @@ function get_value_with_fallback( $acf, $field, $lang) {
 $ID = get_the_ID() ? get_the_ID() : the_ID();
 $acf = get_praca_data( $ID );
 $orientation = $acf["obraz"]["width"] > $acf["obraz"]["height"]*1.3 ? "landscape" : "portrait";
+$url = $acf["obraz"]["url"];
 ?>
 <div class="single <?php echo $orientation?>">
     <article id="post-<?php echo $ID; ?>" <?php post_class(); ?>>
         <div class="single__image">
             <picture>
-                <source srcset="<?php echo $acf["obraz"]["url"];?>.webp" type="image/webp">
-                <source srcset="<?php echo $acf["obraz"]["url"]; ?>" type="image/jpeg">
-                <img class="img-fluid" src="<?php echo $acf["obraz"]["url"]; ?>" alt="<?php echo $acf["obraz"]["alt"]?>">
+                <source srcset="<?php echo $url;?>.webp" type="image/webp">
+                <source srcset="<?php echo $url; ?>" type="image/jpeg">
+                <img class="img-fluid" src="<?php echo $url; ?>" alt="<?php echo $acf["obraz"]["alt"]?>">
             </picture>
         </div>
         <div class="single__details">

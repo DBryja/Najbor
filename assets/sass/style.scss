@@ -5,6 +5,8 @@
 @import "header";
 @import "menu";
 @import "single";
+@import "archive-prace";
+@import "katprace";
 @import "cursor";
 
 body{
@@ -18,7 +20,7 @@ body{
 
 
 main{
-    margin-top: 128px;
+    margin-top: 192px;
     margin-bottom: 128px;
     display: grid;
     width: 100%;

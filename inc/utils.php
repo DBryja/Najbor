@@ -37,11 +37,13 @@ function get_katprace_categories_with_translations() {
 	return $categories_with_translations;
 }
 
-function get_custom_header_template() {
+function get_heading_template() {
 	if (is_front_page() || is_home()) {
 		get_template_part('template-parts/header', 'home');
 	} elseif (is_page('kontakt')) {
 		get_template_part('template-parts/header', 'kontakt');
+	} elseif (is_page('na-sprzedaz')) {
+		get_template_part("template-parts/header", "na-sprzedaz");
 	} elseif (is_post_type_archive('prace')) {
 		get_template_part('template-parts/header', 'prace');
 	} elseif (is_tax('katprace')) {
@@ -83,5 +85,18 @@ function get_praca_data($ID){
 		)
 	);
 	return $custom_fields;
+}
+function get_image_shape($width, $height) {
+	$aspect_ratio = $width / $height;
+
+	if ($aspect_ratio <= 0.8 ) {
+		return 'thin';
+	} elseif ($aspect_ratio > 0.8 && $aspect_ratio <= 1.25) {
+		return 'square';
+	} elseif ($aspect_ratio > 1.25 && $aspect_ratio <= 1.5) {
+		return 'wide';
+	} else {
+		return 'very-wide';
+	}
 }
 ?>
