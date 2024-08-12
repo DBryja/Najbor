@@ -30,6 +30,23 @@ $labels = array(
 		'fr' => 'Année de création'
 	)
 );
+$languages = [ 'pl', 'en', 'fr' ];
+function get_value_with_fallback( $acf, $field, $lang) {
+	global $languages;
+	if (!empty($acf[$field][$lang]) && is_string($acf[$field][$lang])) {
+		return $acf[$field][$lang];
+	}
+    elseif (!empty($acf[$field]) && is_string($acf[$field])) {
+		return $acf[$field];
+	}
+	else {
+		foreach ( $languages as $fallback_lang ) {
+			if (!empty($acf[$field][$fallback_lang] ) && is_string($acf[$field][$fallback_lang] ) )
+				return $acf[$field][$fallback_lang];
+		}
+	}
+	return '';
+}
 ?>
 
 <?php while ( have_posts() ) : the_post();
@@ -51,23 +68,19 @@ $labels = array(
                 console.log(<?php echo json_encode($acf)?>);
             </script>
             <div>
-                <h2><?php echo $acf["tytul"][$lang]?></h2>
-                <p><?php echo $acf["opis"][$lang]?></p>
+                <h2><?php echo get_value_with_fallback($acf, "tytul", $lang)?></h2>
+                <p><?php  echo get_value_with_fallback($acf, "opis", $lang)?></p>
             </div>
             <table>
 <!--                //TODO: make fallback for missing translations-->
                 <?php
-                foreach(array_keys($labels) as $field){
-	                if (!empty($acf[$field][$lang]) && is_string($acf[$field][$lang])) {
+                foreach ( array_keys($labels) as $field ) {
+	                $value = get_value_with_fallback( $acf, $field, $lang);
+	                if (!empty($value)) {
 		                echo "<tr>
-                            <td>{$labels[$field][$lang]}:</td>
-                            <td class='--heading'>{$acf[$field][$lang]}</td>
-                        </tr>";
-	                } elseif (!empty($acf[$field]) && is_string($acf[$field])) {
-		                echo "<tr>
-                           <td>{$labels[$field][$lang]}:</td>
-                           <td class='--heading'>{$acf[$field]}</td>
-                        </tr>";
+                                <td>{$labels[$field][$lang]}:</td>
+                                <td class='--heading'>{$value}</td>
+                              </tr>";
 	                }
                 }
                 ?>
