@@ -29,8 +29,11 @@
 ?>
 <header class="header">
     <div class="logo">
-        <img src="<?php echo get_template_directory_uri()?>/assets/images/logo.png" alt="">
+        <a href="<?php echo $home?>"><img src="<?php echo get_template_directory_uri()?>/assets/images/logo.png" alt=""></a>
     </div>
+    <h3>
+        <?php get_heading_template(); ?>
+    </h3>
     <div class="header__menu cursor--click">
         Menu
     </div>
@@ -42,7 +45,8 @@
         <li class="menu__item cursor--click item"><a href="<?php echo $home?>/kontakt">kontakt</a></li>
         <li class="menu__item cursor--click item"><a href="<?php echo $home?>/na-sprzedaz">na sprzedaż</a></li>
         <li class="menu__item cursor--click item"><a href="<?php echo $home?>/prace/sytuacje">sytuacje</a></li>
-	    <?php get_template_part("template-parts/header", "language-selector") ?>
+	    <br/>
+        <?php get_template_part("template-parts/header", "language-selector") ?>
     </ul>
     <ul class="menu__list hidden categories">
 		<?php
@@ -51,7 +55,7 @@
 			$name = $category['name_' . $language];
 			$slug = $category['slug'];
 			$thumbnail_url = $category['thumbnail_url'];
-			echo "<li class='menu__item cursor--img item' data-thumbnail='$thumbnail_url'><a href='$home/prace/$slug'>$name</a></li>";
+			echo "<li class='menu__item animate cursor--img item' data-thumbnail='$thumbnail_url'><a href='$home/prace/$slug'>$name</a></li>";
 		}
 		?>
     </ul>
@@ -63,7 +67,7 @@
     const mainMenu = document.querySelector('ul.main');
     const subMenu = document.querySelector('ul.categories');
 
-    const selector = ".menu__list:not([hidden]) .menu__item"
+    const selector = ".menu__list:not([hidden]) .menu__item.animate"
     const ease = 'circ';
     const duration = 0.1;
 

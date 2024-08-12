@@ -45,8 +45,8 @@ function runGSAP(){
             ease: ease
         });
         gsap.to("#logo", {
-            "--rotate": "12deg",
-            "--x": "-50%",
+            "--rotate": "-12deg",
+            "--x": "-20%",
             duration: duration,
             ease: ease
         });
