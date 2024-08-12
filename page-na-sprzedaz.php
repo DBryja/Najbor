@@ -10,44 +10,42 @@ $p1->en = get_field('p1_en');
 $p1->fr = get_field('p1_fr');
 ?>
 
-<div class="content-area">
-	<main class="site-main">
-		<h1><?php the_title(); ?></h1>
-        <p><?php echo esc_html($p1->$language) ?></p>
-
+<div class="container">
 		<?php
-		// WP_Query zapytanie
 		$args = [
 			'post_type' => 'prace',
 			'meta_query' => [
 				[
 					'key' => 'na_sprzedaz',
-					'value' => '1', // True zapisywane jest jako 1
+					'value' => '1',
 					'compare' => '='
 				]
 			]
 		];
-
 		$query = new WP_Query( $args );
 
-		if ( $query->have_posts() ) :
-			while ( $query->have_posts() ) : $query->the_post(); ?>
-				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-					<header class="entry-header">
-						<h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-					</header><!-- .entry-header -->
-
-					<div class="entry-content">
-						<?php the_excerpt(); ?>
-					</div><!-- .entry-content -->
-				</article><!-- #post-## -->
-			<?php endwhile;
-			wp_reset_postdata();
-		else :
-            echo '<p> . esc_html($p1->$language) . </p>';
-            ?>
+		if ( $query->have_posts() ) : ?>
+        <div class="prace-archive">
+			<?php while ( $query->have_posts() ) : $query->the_post();
+				$ID = get_the_ID();
+				$image = get_field("Obraz", $ID);
+                ?>
+                <div class="prace-archive__row">
+                    <article class="prace-archive__item" data-shape="<?php echo get_image_shape($image["width"], $image["height"]); ?>">
+                        <a href="<?php the_permalink(); ?>">
+                            <picture>
+                                <source srcset="<?php echo $image["url"]?>.webp" type="image/webp">
+                                <source srcset="<?php echo $image["url"]?>" type="image/jpeg">
+                                <img class="img-fluid" src="<?php echo $image["url"]?>" alt="<?php echo $image["alt"]?>">
+                            </picture>
+                        </a>
+                    </article>
+                </div>
+			<?php
+                endwhile;
+                wp_reset_postdata();?>
+        </div>
+			<?php else : ?>
+            <p><?php esc_html_e( 'Nie znaleziono żadnych prac.', 'twoj-motyw' ); ?></p>
 		<?php endif; ?>
-	</main><!-- .site-main -->
-</div><!-- .content-area -->
-
 <?php get_footer(); ?>
