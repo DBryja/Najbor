@@ -17,6 +17,5 @@ if ($language != "pl"){
 	$term_name = get_field($language, 'katprace_' . $term_id);
 }
 ?>
-<a href="<?php echo get_post_type_archive_link("prace") ?>">
-	<?php echo $term_name?>
-</a>
+
+<?php echo $term_name?>

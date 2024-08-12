@@ -1,23 +1,19 @@
 <?php get_header(); ?>
 
-<div class="container">
-	<?php
-	$categories_with_translations = get_katprace_categories_with_translations();
-    $language = get_site_language();
-
-	if (!empty($categories_with_translations)) {
-        echo '<ul>';
-        foreach ($categories_with_translations as $category) {
-	        echo '<li> <a href="'.get_term_link($category['slug'], 'katprace') . '">';
-            echo esc_html($category['name_'.$language]);
-	        echo '</a></li><br/>';
-        }
-        echo '</ul>';
-	} else {
-		echo 'Brak kategorii do wyświetlenia.';
-	}
-	?>
-
+<div class="page-prace">
+    <ul class="menu__list categories">
+		<?php
+		$home = get_home_url();
+		$language = get_site_language();
+		$categories = get_katprace_categories_with_translations();
+		foreach ($categories as $category) {
+			$name = $category['name_' . $language];
+			$slug = $category['slug'];
+			$thumbnail_url = $category['thumbnail_url'];
+			echo "<li class='menu__item cursor--img item black' data-thumbnail='$thumbnail_url'><a href='$home/prace/$slug'>$name</a></li>";
+		}
+		?>
+    </ul>
 </div>
 
 <?php get_footer(); ?>
