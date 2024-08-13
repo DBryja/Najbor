@@ -13,7 +13,7 @@
                             <picture>
                                 <source srcset="<?php echo $image["url"]?>.webp" type="image/webp">
                                 <source srcset="<?php echo $image["url"]?>" type="image/jpeg">
-                                <img class="img-fluid" src="<?php echo $image["url"]?>" alt="<?php echo $image["alt"]?>">
+                                <img src="<?php echo $image["url"]?>" loading="lazy" alt="<?php echo $image["alt"]?>">
                             </picture>
                         </a>
                     </article>
