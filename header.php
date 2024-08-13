@@ -18,10 +18,6 @@
 </head>
 
 <body>
-<div class="cursor">
-    <div class="cursor__arrow"></div>
-    <div class="cursor__image"></div>
-</div>
 <?php
     if(is_front_page() || is_home()){
 	    get_template_part("template-parts/header", "animation");
@@ -40,11 +36,11 @@
 </header>
 <div class="menu inactive">
     <ul class="menu__list main">
-        <li class="menu__item cursor--click item"><a href="<?php echo $home?>/">home</a></li>
-        <li class="menu__item cursor--click item prace">prace</li>
-        <li class="menu__item cursor--click item"><a href="<?php echo $home?>/kontakt">kontakt</a></li>
-        <li class="menu__item cursor--click item"><a href="<?php echo $home?>/na-sprzedaz">na sprzedaż</a></li>
-        <li class="menu__item cursor--click item"><a href="<?php echo $home?>/prace/sytuacje">sytuacje</a></li>
+        <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>/">home</a></li>
+        <li class="menu__item cursor--click item animate prace">prace</li>
+        <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>/kontakt">kontakt</a></li>
+        <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>/na-sprzedaz">na sprzedaż</a></li>
+        <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>/prace/sytuacje">sytuacje</a></li>
 	    <br/>
         <?php get_template_part("template-parts/header", "language-selector") ?>
     </ul>
@@ -60,12 +56,20 @@
 		?>
     </ul>
 </div>
+
+<div class="cursor">
+    <div class="cursor__arrow"></div>
+    <div class="cursor__image"></div>
+</div>
+
+
 <script>
     const menuContainer = document.querySelector('.menu');
     const button = document.querySelector('.header__menu');
-    const prace = document.querySelector('.prace');
+    const prace = document.querySelector('li.prace');
     const mainMenu = document.querySelector('ul.main');
     const subMenu = document.querySelector('ul.categories');
+    const cursor = document.querySelector(".cursor");
 
     const selector = ".menu__list:not([hidden]) .menu__item.animate"
     const ease = 'circ';
@@ -104,6 +108,11 @@
     function toggleMenu(){
         menuContainer.classList.toggle('active');
         menuContainer.classList.toggle("inactive");
+
+        if(menuContainer.classList.contains("active"))
+            menuContainer.appendChild(cursor);
+        else
+            document.body.appendChild(cursor);
     }
     function toggleMenuOptions(){
         mainMenu.classList.toggle('hidden');
