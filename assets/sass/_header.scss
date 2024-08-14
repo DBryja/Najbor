@@ -1,4 +1,5 @@
 //TODO: Change the path to the image
+@import "mixins";
 $szpiegPath: "../images/szpieg.png";
 
 @mixin absolute-center {
@@ -40,13 +41,17 @@ $szpiegPath: "../images/szpieg.png";
 }
 
 :root{
-  --logo-width: 30%;
-  --exit-width: 128px;
-  @media (max-width: 1200px) {
-    --logo-width: 50%;
-  }
-  @media (max-width: 768px) {
+  --exit-width: 72px;
+  --logo-width: 50%;
+  @include breakpoint(md){
     --exit-width: 92px;
+  }
+  @include breakpoint(lg){
+    --exit-width: 128px;
+  }
+  @include breakpoint(xl){
+    --exit-width: 128px;
+    --logo-width: 30%;
   }
 }
 .anim-wrapper {
@@ -97,7 +102,7 @@ $szpiegPath: "../images/szpieg.png";
 
 .header {
   height: auto;
-  padding: 32px;
+  padding: 1rem 2rem;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -127,6 +132,31 @@ $szpiegPath: "../images/szpieg.png";
   }
 
   h3{
-    mix-blend-mode: difference;
+    display: none;
+  @include breakpoint(lg){
+    display: inline-block;
+  }
+  }
+
+  &__menu{
+    display: block;
+    border: none;
+    background-color: transparent;
+  }
+
+  &:after{
+    content: "";
+    display: block;
+    width: 5rem;
+    height: 5rem;
+    background-image: url('../images/szpieg2.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right;
+    position: absolute;
+    pointer-events: none;
+
+    right: 0;
+    top: calc(50% - 2rem);
   }
 }

@@ -47,6 +47,7 @@ input {
 }
 
 html {
+  font-family: "Segoe UI", sans-serif;
   font-size: 12px;
 }
 @media (min-width: 1024px) {
@@ -76,24 +77,35 @@ h2.--heading {
 }
 
 h3 {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
   font-size: 4rem;
   font-weight: 500;
   text-transform: uppercase;
 }
 
 h4 {
-  font-size: 2rem;
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.8rem;
   font-weight: 400;
 }
 
 p {
-  font-family: "Segoe UI", sans-serif;
   font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.25;
 }
 
 li {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
   font-size: 4rem;
   font-weight: 500;
   color: #F8F9F3;
@@ -116,7 +128,6 @@ a :visited {
 }
 
 td {
-  font-family: "Segoe UI", sans-serif;
   font-size: 1.25rem;
 }
 td.--heading {
@@ -129,17 +140,23 @@ input {
 }
 
 :root {
-  --logo-width: 30%;
-  --exit-width: 128px;
+  --exit-width: 72px;
+  --logo-width: 50%;
 }
-@media (max-width: 1200px) {
-  :root {
-    --logo-width: 50%;
-  }
-}
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   :root {
     --exit-width: 92px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --exit-width: 128px;
+  }
+}
+@media (min-width: 1280px) {
+  :root {
+    --exit-width: 128px;
+    --logo-width: 30%;
   }
 }
 
@@ -215,7 +232,7 @@ input {
 
 .header {
   height: auto;
-  padding: 32px;
+  padding: 1rem 2rem;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -262,7 +279,31 @@ input {
   height: auto;
 }
 .header h3 {
-  mix-blend-mode: difference;
+  display: none;
+}
+@media (min-width: 1024px) {
+  .header h3 {
+    display: inline-block;
+  }
+}
+.header__menu {
+  display: block;
+  border: none;
+  background-color: transparent;
+}
+.header:after {
+  content: "";
+  display: block;
+  width: 5rem;
+  height: 5rem;
+  background-image: url("../images/szpieg2.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right;
+  position: absolute;
+  pointer-events: none;
+  right: 0;
+  top: calc(50% - 2rem);
 }
 
 .menu {
@@ -520,6 +561,7 @@ input {
 
 .cursor {
   width: 2rem;
+  height: auto;
   aspect-ratio: 1;
   position: fixed;
   z-index: 90;
@@ -533,6 +575,12 @@ input {
   top: 0 !important;
   left: 0 !important;
   transform-origin: center;
+  display: none;
+}
+@media (pointer: fine) {
+  .cursor {
+    display: block;
+  }
 }
 .cursor__image {
   position: absolute;
@@ -545,24 +593,56 @@ input {
   width: 0;
   height: 18rem;
   filter: brightness(2);
-  z-index: 92;
+  z-index: 91;
   transform: skewX(0) skew(0);
   will-change: skewX, skew, filter, width, background-image;
 }
 .cursor__arrow {
-  z-index: 91;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  opacity: 0;
+  z-index: 92;
+  transition: transform 0.3s ease;
+}
+.cursor__arrow svg {
+  width: 100%;
+  height: 100%;
 }
 
-.cursor--click:hover, .cursor--img:hover {
+body:has(div.menu.active:hover) {
+  cursor: pointer;
+}
+body:has(div.menu.active:hover) .cursor__arrow {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.cursor--click:hover, .cursor--img:hover, a {
   cursor: pointer;
 }
 
-body:has(.cursor--click:hover) .cursor {
+body:has(.cursor--click:hover) .cursor, body:has(a:hover) .cursor {
   width: 3rem;
 }
+body:has(.cursor--click:hover) .cursor__arrow, body:has(a:hover) .cursor__arrow {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg) !important;
+}
 
-body:has(.cursor--img:hover) .cursor {
-  width: 3rem;
+body:has(.cursor--img:hover) .cursor__arrow {
+  opacity: 0 !important;
+}
+
+body:has(.menu__item.cursor--click:nth-child(even):hover) .cursor__arrow {
+  transform: translate(-50%, -50%) rotate(180deg) !important;
 }
 
 body {
@@ -570,17 +650,14 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  font-family: "Playfair Display", serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
 }
 
 main {
-  margin-top: 192px;
+  margin-top: 10rem;
   margin-bottom: 128px;
   display: grid;
   width: 100%;
+  padding: 1rem 2rem;
 }
 
 /*# sourceMappingURL=style.css.map */

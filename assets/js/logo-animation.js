@@ -51,8 +51,8 @@ function runGSAP(){
             ease: ease
         });
         gsap.to("#anim-wrapper", {
-            left: "32px",
-            top: "32px",
+            left: "2rem",
+            top: "1rem",
             transform: "translate(0, 0)",
             delay: 0.1 * duration,
             duration: duration,

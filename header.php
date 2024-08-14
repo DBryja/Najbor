@@ -14,6 +14,29 @@
     wp_head();
     $language = get_site_language();
     $home = get_home_url();
+
+    $labels = array(
+	    'home' => array(
+		    'pl' => 'Strona Główna',
+		    'en' => 'Homepage',
+		    'fr' => 'Accueil'
+	    ),
+	    'prace' => array(
+		    'pl' => 'Prace',
+		    'en' => 'Works',
+		    'fr' => 'Œuvres'
+	    ),
+	    'kontakt' => array(
+		    'pl' => 'Kontakt',
+		    'en' => 'Contact',
+		    'fr' => 'Contact'
+	    ),
+	    'na_sprzedaz' => array(
+		    'pl' => 'Na Sprzedaż',
+		    'en' => 'For Sale',
+		    'fr' => 'à Vendre'
+	    )
+    );
     ?>
 </head>
 
@@ -30,17 +53,18 @@
     <h3>
         <?php get_heading_template(); ?>
     </h3>
-    <div class="header__menu cursor--click">
-        Menu
-    </div>
+    <button class="header__menu cursor--click">
+        <h4>
+        menu
+        </h4>
+    </button>
 </header>
 <div class="menu inactive">
     <ul class="menu__list main">
-        <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>/">home</a></li>
-        <li class="menu__item cursor--click item animate prace">prace</li>
-        <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>/kontakt">kontakt</a></li>
-        <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>/na-sprzedaz">na sprzedaż</a></li>
-        <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>/prace/sytuacje">sytuacje</a></li>
+        <li class="menu__item cursor--click item animate prace"><?php echo $labels["prace"][$language]?></li>
+        <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>/kontakt"><?php echo $labels["kontakt"][$language]?></a></li>
+        <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>/na-sprzedaz"><?php echo $labels["na_sprzedaz"][$language]?></a></li>
+        <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>"><?php echo $labels["home"][$language]?></a></li>
 	    <br/>
         <?php get_template_part("template-parts/header", "language-selector") ?>
     </ul>
@@ -58,7 +82,12 @@
 </div>
 
 <div class="cursor">
-    <div class="cursor__arrow"></div>
+    <div class="cursor__arrow">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FE0000" stroke="#FE0000" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+    </div>
     <div class="cursor__image"></div>
 </div>
 

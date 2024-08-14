@@ -18,13 +18,13 @@ body{
     margin: 0;
     padding: 0;
     //overflow:hidden;
-    @include playfair-display;
 }
 
 
 main{
-    margin-top: 192px;
+    margin-top: 10rem;
     margin-bottom: 128px;
     display: grid;
     width: 100%;
+    padding: 1rem 2rem;
 }

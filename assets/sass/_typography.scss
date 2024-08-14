@@ -8,6 +8,7 @@
   font-style: normal;
 }
 html{
+  font-family: "Segoe UI", sans-serif;
   font-size: 12px;
   @include breakpoint("lg") {
     font-size: 16px;
@@ -34,21 +35,23 @@ h2{
   }
 }
 h3{
+  @include playfair-display;
   font-size: 4rem;
   font-weight: 500;
   text-transform: uppercase;
 }
 h4{
-  font-size: 2rem;
+  @include playfair-display;
+  font-size: 1.8rem;
   font-weight: 400;
 }
 p{
-  font-family: "Segoe UI", sans-serif;
   font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.25;
 }
 li{
+  @include playfair-display;
   font-size: 4rem;
   font-weight: 500;
   color: $white;
@@ -69,7 +72,6 @@ a{
   }
 }
 td{
-  font-family: "Segoe UI", sans-serif;
   font-size: 1.25rem;
   &.--heading{
     font-weight: 500;

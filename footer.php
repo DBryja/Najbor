@@ -9,7 +9,7 @@
             event.preventDefault();
             gsap.fromTo(transitionBox, {
                 y: "100%",
-                duration: 1,
+                duration: 0.6,
                 ease: 'power4.inOut',
             },{
                 y: "0%",
@@ -23,7 +23,7 @@
     window.addEventListener('DOMContentLoaded', () => {
         gsap.to(transitionBox, {
             y: "-100%",
-            duration: 1,
+            duration: 0.6,
             ease: 'power4.inOut',
         });
     });
