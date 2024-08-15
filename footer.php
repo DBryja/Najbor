@@ -1,5 +1,7 @@
 </main>
-<div class="transition-box"></div>
+<div class="transition-box">
+    <div class="loader"/>
+</div>
 
 <script>
     const transitionBox = document.querySelector('.transition-box');
