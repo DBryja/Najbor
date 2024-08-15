@@ -9,6 +9,7 @@
 @import "archive-prace";
 @import "katprace";
 @import "transition_box";
+@import "404";
 
 @import "cursor";
 
@@ -19,7 +20,9 @@ body{
     padding: 0;
     //overflow:hidden;
 }
-
+*{
+    -webkit-tap-highlight-color: transparent;
+}
 
 main{
     margin-top: 10rem;

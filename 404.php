@@ -2,24 +2,39 @@
 get_header();
 $page_slug = '404-not-found'; // Slug strony 404-not-found
 $page = get_page_by_path($page_slug);
+$language = get_site_language();
+$quote = array(
+    "pl" => "Nie ma takiej strony",
+    "en" => "Page not found",
+    "fr" => "Page non trouvée"
+);
+$back = array(
+        "pl" => "Powrót",
+        "en" => "Go Back",
+        "fr" => "Retour"
+);
 if ($page) {
-	$language = get_site_language();
-    $quote = get_field('cytat_'.$language, $page->ID);
+    $quote = array(
+            "pl" => get_field("cytat_pl", $page->ID),
+            "en" => get_field("cytat_en", $page->ID),
+            "fr" => get_field("cytat_fr", $page->ID)
+    );
 }
 
 ?>
 
-<article class="content px-3 py-5 p-md-5">
-    <h1>
+<div class="container errorPage">
+    <h1 class="--404">404</h1>
+    <h6>
 	<?php
-	if ($quote) {
-		echo esc_html($quote);
-	} else {
-        echo '404 - Page not found';
-    }
+	if ($quote[$language]) {
+		echo nl2br(htmlentities($quote[$language], ENT_QUOTES, 'UTF-8'));
+	}
 	?>
-    </h1>
-</article>
+    </h6>
+
+    <a href="<?php echo get_home_url()?>" class="back"><?php echo $back[$language] ?></a>
+</div>
 <?php
 get_footer();
 ?>
