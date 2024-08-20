@@ -28,17 +28,31 @@ $labels = array(
 		'pl' => 'Rok powstania',
 		'en' => 'Year of creation',
 		'fr' => 'Année de création'
-	)
+	),
+    "na_sprzedaz" => array(
+        "pl" => "Dostępność",
+        "en" => "Availability",
+        "fr" => "Disponibilité"
+    ),
 );
 $languages = [ 'pl', 'en', 'fr' ];
+$for_sale= array(
+    'pl' => 'Na sprzedaż',
+    'en' => 'For sale',
+    'fr' => 'À vendre'
+);
 function get_value_with_fallback( $acf, $field, $lang) {
 	global $languages;
+
 	if (!empty($acf[$field][$lang]) && is_string($acf[$field][$lang])) {
 		return $acf[$field][$lang];
 	}
     elseif (!empty($acf[$field]) && is_string($acf[$field])) {
 		return $acf[$field];
 	}
+    elseif (!empty($acf[$field]) && is_bool($acf[$field])) {
+	    return $acf[$field];
+    }
 	else {
 		foreach ( $languages as $fallback_lang ) {
 			if (!empty($acf[$field][$fallback_lang] ) && is_string($acf[$field][$fallback_lang] ) )
@@ -71,6 +85,9 @@ $url = $acf["obraz"]["url"];
 				<?php
 				foreach ( array_keys($labels) as $field ) {
 					$value = get_value_with_fallback( $acf, $field, $lang);
+                    if ($field == "na_sprzedaz" && $value == 1) {
+                        $value = $for_sale[$lang];
+                    }
 					if (!empty($value)) {
 						echo "<tr>
                                 <td>{$labels[$field][$lang]}:</td>

@@ -7,7 +7,7 @@
             $ID = get_the_ID();
             $image = get_field("Obraz", $ID);
             ?>
-                <div class="prace-archive__row">
+                <div class="prace-archive__row" id="<?php echo $ID; ?>">
                     <article class="prace-archive__item" data-shape="<?php echo get_image_shape($image["width"], $image["height"]); ?>">
                         <a href="<?php the_permalink(); ?>">
                             <picture>
@@ -27,7 +27,20 @@
 </div>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        yOffset = -50;
 
+        setTimeout(function() {
+            if (window.location.hash) {
+                const targetId = window.location.hash.substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    const y = targetElement.getBoundingClientRect().top + window.scrollY + yOffset;
+                    window.scrollTo({top: y, behavior: 'smooth'});
+                }
+            }
+        }, 150);
+    });
 </script>
 
 

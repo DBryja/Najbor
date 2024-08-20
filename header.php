@@ -24,7 +24,7 @@
 	    'prace' => array(
 		    'pl' => 'Prace',
 		    'en' => 'Works',
-		    'fr' => 'Œuvres'
+		    'fr' => 'Travaux'
 	    ),
 	    'kontakt' => array(
 		    'pl' => 'Kontakt',
