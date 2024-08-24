@@ -1,10 +1,12 @@
 .lang{
-  margin-top: 4rem;
+  position: absolute;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   column-gap: 1rem;
+  top: 100%;
+  margin-top: 3rem;
 
     .lang__item{
       font-size: 1rem;

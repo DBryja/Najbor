@@ -6,6 +6,11 @@ $fields = array(
 	'subject' => array("pl"=>"Temat", "en"=>"Subject", "fr"=>"Sujet"),
 	'message' => array("pl"=>"Wiadomość", "en"=>"Message", "fr"=>"Message")
 );
+$heading = array(
+    "pl" => "Zamówienia, Zlecenia, Zapytania",
+    "en" => "Orders, Offers, Inquiries",
+    "fr" => "Commandes, Contrats, Consultations"
+);
 
 if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	$name = sanitize_text_field( $_POST['name'] );
@@ -21,15 +26,17 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 
 	wp_mail( $to, $subject, $body, $headers );
 
-	echo '<p>Thank you for your message. We will get back to you soon.</p>';
+    exit;
 }
+
+
 ?>
 
 <div class="contact">
     <div class="contact__decoration"></div>
-    <form method="post" action="" class="form">
+    <form method="POST" action="" class="form">
         <h2>
-            Zamówienia, Zlecenia, Zapytania
+            <?php echo $heading[$language]?>
         </h2>
         <div class="form-field form-field__wrapper">
             <label class="form-field__label" for="name"><?php echo $fields["name"][$language]?></label><br>
