@@ -79,6 +79,9 @@ li{
   @include breakpoint("md") {
     font-size: 4rem;
   }
+  @include breakpoint("lg") {
+    margin: 0;
+  }
 }
 a{
   text-decoration: none;
@@ -100,7 +103,10 @@ td{
     font-weight: 500;
   }
 }
-input{
+input, .form-field *{
   font-size: 1rem;
   font-weight: 400;
+  border: none;
+  background: none;
+  font-family: "Segoe UI", sans-serif;
 }

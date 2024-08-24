@@ -17,7 +17,7 @@
 
     $labels = array(
 	    'home' => array(
-		    'pl' => 'Strona Główna',
+		    'pl' => 'Start',
 		    'en' => 'Homepage',
 		    'fr' => 'Accueil'
 	    ),
@@ -61,10 +61,10 @@
 </header>
 <div class="menu inactive">
     <ul class="menu__list main">
+        <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>"><?php echo $labels["home"][$language]?></a></li>
         <li class="menu__item cursor--click item animate prace"><?php echo $labels["prace"][$language]?></li>
         <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>/kontakt"><?php echo $labels["kontakt"][$language]?></a></li>
         <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>/na-sprzedaz"><?php echo $labels["na_sprzedaz"][$language]?></a></li>
-        <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>"><?php echo $labels["home"][$language]?></a></li>
 	    <br/>
         <?php get_template_part("template-parts/header", "language-selector") ?>
     </ul>
@@ -99,6 +99,7 @@
     const mainMenu = document.querySelector('ul.main');
     const subMenu = document.querySelector('ul.categories');
     const cursor = document.querySelector(".cursor");
+    const mainMenuItems = mainMenu.querySelectorAll(".menu__item");
 
     const selector = ".menu__list:not([hidden]) .menu__item.animate"
     const ease = 'circ';

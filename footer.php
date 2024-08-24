@@ -1,6 +1,6 @@
 </main>
 <div class="transition-box">
-    <div class="loader"/>
+    <div class="loader"></div>
 </div>
 
 <script>
@@ -48,8 +48,11 @@
     });
 </script>
 
-<footer class="footer text-center py-2 theme-bg-dark">
+<footer class="footer">
 	<?php
+    if(!is_page("kontakt")){
+	    get_template_part("template-parts/contact", "form");
+    }
 	wp_footer();
 	?>
 </footer>
