@@ -18,6 +18,6 @@ if ($language != "pl"){
 }
 ?>
 
-<a href="<?php echo get_term_link($term_slug, 'katprace'); ?>#<?php echo $ID?>">
+<a href="<?php echo get_term_link($term_slug, 'katprace'); ?>">
 	<?php echo $term_name?>
 </a>
