@@ -778,6 +778,11 @@ input, .form-field * {
   margin-bottom: 0;
   background-color: rgba(254, 0, 0, 0.05);
 }
+@media (min-width: 1024px) {
+  .footer {
+    padding-bottom: 0;
+  }
+}
 
 .lang {
   position: absolute;
@@ -988,6 +993,26 @@ main {
   main {
     padding: 1rem 2rem;
   }
+}
+
+.copyrights {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  font-size: 1rem;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: #F8F9F3;
+}
+.copyrights a {
+  text-decoration: underline;
+}
+
+.main-wrapper > .copyrights {
+  color: #000000;
+  z-index: 1;
 }
 
 /*# sourceMappingURL=style.css.map */

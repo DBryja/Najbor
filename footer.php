@@ -6,8 +6,18 @@
 <script>
     const transitionBox = document.querySelector('.transition-box');
     let isTransitioning = false;
+    function runTransitionAnimation() {
+        gsap.to(transitionBox, {
+            y: "-100%",
+            duration: 0.6,
+            ease: 'power4.inOut',
+            onComplete: () => {
+                transitionBox.classList.add('ranAnim');
+            }
+        });
+    }
 
-    document.querySelectorAll('a').forEach(link => {
+    document.querySelectorAll('a:not([target="_blank"])').forEach(link => {
         link.addEventListener('click', (event) => {
             if(isTransitioning) return;
             isTransitioning = true;
@@ -20,31 +30,26 @@
             },{
                 y: "0%",
                 onComplete: () => {
+                    isTransitioning = false;
                     window.location.href = link.href;
                 }
             });
         });
     });
-    function runTransitionAnimation() {
-        gsap.to(transitionBox, {
-            y: "-100%",
-            duration: 0.6,
-            ease: 'power4.inOut',
-            onComplete: () => {
-                transitionBox.classList.add('ranAnim');
-            }
-        });
-    }
 
-    window.addEventListener('DOMContentLoaded', () => {
-        runTransitionAnimation()
-    });
-    window.addEventListener('load', () => {
-       setTimeout(() => {
-            if(!transitionBox.classList.contains('ranAnim')){
-                runTransitionAnimation()
-            }
-         }, 1500);
+    function onPageLoad() {
+        const menuActive = document.querySelector(".menu.active");
+        if(menuActive){
+            menuActive.classList.remove("active");
+            menuActive.classList.add("inactive");
+        }
+        runTransitionAnimation();
+    }
+    window.addEventListener('DOMContentLoaded', onPageLoad);
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) { // Check if the page is loaded from cache
+            onPageLoad();
+        }
     });
 </script>
 

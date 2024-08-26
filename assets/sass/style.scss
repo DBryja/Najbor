@@ -50,3 +50,22 @@ main{
     margin-bottom: 3rem;
     //min-height: calc(100dvh - 10rem);
 }
+
+.copyrights{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    font-size: 1rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: $white;
+    a{
+        text-decoration: underline;
+    }
+}
+.main-wrapper > .copyrights {
+    color: $black;
+    z-index: 1;
+}
