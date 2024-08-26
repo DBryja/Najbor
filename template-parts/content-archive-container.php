@@ -22,4 +22,11 @@
 	<?php else : ?>
 		<p><?php esc_html_e( 'Nie znaleziono żadnych prac.', 'twoj-motyw' ); ?></p>
 	<?php endif; ?>
+
+
+    <div class="navigation">
+		<?php //REMOVE DEFAULT:  next_posts_link('<< Older Posts')
+		//REMOVE DEFAULT:   previous_posts_link('Newer Posts >>') ?>
+		<?php if(function_exists('pagenavi')) { pagenavi(); } ?>
+    </div>
 </div>

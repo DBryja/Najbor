@@ -276,7 +276,7 @@ input, .form-field * {
 
 .header {
   height: auto;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -286,6 +286,11 @@ input, .form-field * {
   overflow: hidden;
   top: 0;
   z-index: 10;
+}
+@media (min-width: 768px) {
+  .header {
+    padding: 1rem 2rem;
+  }
 }
 .header .logo {
   aspect-ratio: 1/1;
@@ -793,6 +798,66 @@ input, .form-field * {
   color: #F8F9F3;
 }
 
+.navigation {
+  margin-top: 3rem;
+}
+
+.pagenavi {
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+}
+.pagenavi a, .pagenavi span.current {
+  font-size: 1.5rem;
+  padding: 8px;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .pagenavi a, .pagenavi span.current {
+    font-size: 1.2rem;
+  }
+}
+
+.pagenavi a {
+  display: block;
+  color: #000000;
+  position: relative;
+}
+.pagenavi a:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #000000;
+  transform: scaleX(0);
+  transition: 0.15s transform ease-in-out;
+  transform-origin: center;
+}
+
+.pagenavi a:hover:after {
+  transform: scaleX(1);
+}
+
+.pagenavi span.current {
+  font-weight: bold;
+  position: relative;
+}
+.pagenavi span.current:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #000000;
+}
+
 .cursor {
   width: 2rem;
   height: auto;
@@ -902,10 +967,13 @@ main {
   box-sizing: border-box;
   margin-top: 10rem;
   display: grid;
-  width: 100%;
-  padding: 1rem 2rem;
-  min-height: calc(100dvh - 10rem);
-  min-width: 100dvw;
+  width: 100dvw;
+  padding: 1rem 1rem;
+}
+@media (min-width: 768px) {
+  main {
+    padding: 1rem 2rem;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

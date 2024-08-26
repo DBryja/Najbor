@@ -13,6 +13,7 @@
 @import "contact";
 @import "footer";
 @import "language-selector";
+@import "pagination";
 
 @import "cursor";
 
@@ -39,8 +40,10 @@ main{
     box-sizing: border-box;
     margin-top: 10rem;
     display: grid;
-    width: 100%;
-    padding: 1rem 2rem;
-    min-height: calc(100dvh - 10rem);
-    min-width: 100dvw;
+    width: 100dvw;
+    padding: 1rem 1rem;
+    @include breakpoint(md){
+        padding: 1rem 2rem;
+    }
+    //min-height: calc(100dvh - 10rem);
 }
