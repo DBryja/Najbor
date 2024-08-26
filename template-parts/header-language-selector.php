@@ -2,17 +2,33 @@
 	$language = get_site_language();
 ?>
 
-<form id="language-form">
-    <select id="language-select">
-        <option value="pl" <?php selected($language, 'pl'); ?>><?php _e('Polski', 'textdomain'); ?></option>
-        <option value="fr" <?php selected($language, 'fr'); ?>><?php _e('Français', 'textdomain'); ?></option>
-        <option value="en" <?php selected($language, 'en'); ?>><?php _e('English', 'textdomain'); ?></option>
-    </select>
+<form id="language-form" class="lang">
+    <label class="cursor--click lang__item <?php echo ($language == 'pl') ? 'active' : ''; ?>">
+        <input type="radio" name="language" value="pl" <?php checked($language, 'pl'); ?>>
+        <span>
+            <?php _e('PL', 'textdomain'); ?>
+        </span>
+    </label>
+    <label class="cursor--click lang__item <?php echo ($language == 'fr') ? 'active' : ''; ?>">
+        <input type="radio" name="language" value="fr" <?php checked($language, 'fr'); ?>>
+        <span>
+            <?php _e('FR', 'textdomain'); ?>
+        </span>
+    </label>
+    <label class="cursor--click lang__item <?php echo ($language == 'en') ? 'active' : ''; ?>">
+        <input type="radio" name="language" value="en" <?php checked($language, 'en'); ?>>
+        <span>
+            <?php _e('EN', 'textdomain'); ?>
+        </span>
+    </label>
 </form>
+
 <script>
-    document.getElementById('language-select').addEventListener('change', function() {
-        var selectedLanguage = this.value;
-        document.cookie = "site_language=" + selectedLanguage + "; path=/";
-        location.reload();
+    document.querySelectorAll('input[name="language"]').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            const selectedLanguage = this.value;
+            document.cookie = "site_language=" + selectedLanguage + "; path=/";
+            location.reload();
+        });
     });
 </script>

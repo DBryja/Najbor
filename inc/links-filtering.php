@@ -24,4 +24,5 @@ function custom_taxonomy_permalink( $termlink, $term, $taxonomy ) {
 add_filter( 'term_link', 'custom_taxonomy_permalink', 10, 3 );
 
 add_action('init', 'flush_rewrite_rules');
+
 ?>

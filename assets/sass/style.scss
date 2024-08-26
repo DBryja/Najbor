@@ -10,6 +10,10 @@
 @import "katprace";
 @import "transition_box";
 @import "404";
+@import "contact";
+@import "footer";
+@import "language-selector";
+@import "pagination";
 
 @import "cursor";
 
@@ -18,16 +22,28 @@ body{
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    min-height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
     //overflow:hidden;
 }
+body:has(.menu.active){
+    overflow: hidden!important;
+}
+
 *{
     -webkit-tap-highlight-color: transparent;
 }
 
 main{
+    box-sizing: border-box;
     margin-top: 10rem;
-    margin-bottom: 128px;
     display: grid;
-    width: 100%;
-    padding: 1rem 2rem;
+    width: 100dvw;
+    padding: 1rem 1rem;
+    @include breakpoint(md){
+        padding: 1rem 2rem;
+    }
+    //min-height: calc(100dvh - 10rem);
 }

@@ -6,7 +6,6 @@
   position: fixed;
   z-index: $z-cursor;
   pointer-events: none;
-  background: none;
   border: 1px solid $red;
   border-radius: 50%;
   transform: translate(-50%, -50%);
@@ -16,6 +15,7 @@
   left: 0!important;
   transform-origin: center;
   display: none;
+  background-color: transparent;
   @media (pointer: fine){
     display: block;
   }

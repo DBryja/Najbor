@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!--    <title>Blog Site Template</title>-->
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Blog Site Template">
-    <meta name="author" content="https://youtube.com/FollowAndrew">
-    <link rel="shortcut icon" href="images/logo.png">
+    <meta name="description" content="Odkryj fascynujący świat sztuki Wiktora Najbora. Zobacz jego wyjątkowe obrazy i projekty artystyczne, które łączą pasję z unikalnym stylem. Przeglądaj galerię dzieł, poznaj artystę i zanurz się w kreatywnym świecie Wiktora Najbora. Idealne dla miłośników sztuki i kolekcjonerów.">
+    <meta name="author" content="https://github.com/dbryja">
+    <link rel="shortcut icon" href="/assets/images/logo.png">
 
     <?php
     wp_head();
@@ -17,14 +16,14 @@
 
     $labels = array(
 	    'home' => array(
-		    'pl' => 'Strona Główna',
+		    'pl' => 'Start',
 		    'en' => 'Homepage',
 		    'fr' => 'Accueil'
 	    ),
 	    'prace' => array(
 		    'pl' => 'Prace',
 		    'en' => 'Works',
-		    'fr' => 'Œuvres'
+		    'fr' => 'Travaux'
 	    ),
 	    'kontakt' => array(
 		    'pl' => 'Kontakt',
@@ -48,7 +47,7 @@
 ?>
 <header class="header">
     <div class="logo">
-        <a href="<?php echo $home?>"><img src="<?php echo get_template_directory_uri()?>/assets/images/logo.png" alt=""></a>
+        <a href="<?php echo $home?>"><img src="<?php echo get_template_directory_uri()?>/assets/images/logo.png" alt="logo"></a>
     </div>
     <h3>
         <?php get_heading_template(); ?>
@@ -61,10 +60,10 @@
 </header>
 <div class="menu inactive">
     <ul class="menu__list main">
+        <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>"><?php echo $labels["home"][$language]?></a></li>
         <li class="menu__item cursor--click item animate prace"><?php echo $labels["prace"][$language]?></li>
         <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>/kontakt"><?php echo $labels["kontakt"][$language]?></a></li>
         <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>/na-sprzedaz"><?php echo $labels["na_sprzedaz"][$language]?></a></li>
-        <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>"><?php echo $labels["home"][$language]?></a></li>
 	    <br/>
         <?php get_template_part("template-parts/header", "language-selector") ?>
     </ul>
@@ -99,6 +98,7 @@
     const mainMenu = document.querySelector('ul.main');
     const subMenu = document.querySelector('ul.categories');
     const cursor = document.querySelector(".cursor");
+    const mainMenuItems = mainMenu.querySelectorAll(".menu__item");
 
     const selector = ".menu__list:not([hidden]) .menu__item.animate"
     const ease = 'circ';

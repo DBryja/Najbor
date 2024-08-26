@@ -3,7 +3,7 @@ $language = get_site_language();
 
 $term_name = '';
 $term_slug = '';
-
+$ID = get_the_ID();
 $queried_object = get_queried_object();
 $terms = get_the_terms( get_the_ID(), 'katprace' );
 $working_object = $queried_object;
@@ -18,6 +18,6 @@ if ($language != "pl"){
 }
 ?>
 
-<a href="<?php echo get_term_link($term_slug, 'katprace') ?>">
+<a href="<?php echo get_term_link($term_slug, 'katprace'); ?>#<?php echo $ID?>">
 	<?php echo $term_name?>
 </a>
