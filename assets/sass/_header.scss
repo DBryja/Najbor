@@ -112,6 +112,11 @@ $szpiegPath: "../images/szpieg.png";
   overflow: hidden;
   top: 0;
   z-index: $z-header;
+  @include breakpoint(md){
+    padding: 1rem 2rem;
+  }
+
+
   .logo {
     aspect-ratio: 1/1;
     width: var(--exit-width);
