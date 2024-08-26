@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", runGSAP);
 function runGSAP(){
     const logoSize = getComputedStyle(document.documentElement).getPropertyValue("--exit-width");
+    const headerStyle = getComputedStyle(document.querySelector("header.header"));
+    const paddings = [headerStyle.paddingTop, headerStyle.paddingRight, headerStyle.paddingBottom, headerStyle.paddingLeft];
 
     gsap.registerPlugin(gsap.plugins.motionPath);
     const duration = 1.6;
@@ -8,6 +10,9 @@ function runGSAP(){
 
     gsap.set(".header", {
         display: "none"
+    })
+    gsap.set(["body", "html"], {
+        "overflow-y": "hidden"
     })
 
     function enterAnim() {
@@ -51,8 +56,8 @@ function runGSAP(){
             ease: ease
         });
         gsap.to("#anim-wrapper", {
-            left: "2rem",
-            top: "1rem",
+            left: paddings[3],
+            top: paddings[0],
             transform: "translate(0, 0)",
             delay: 0.1 * duration,
             duration: duration,
@@ -68,12 +73,22 @@ function runGSAP(){
         })
         gsap.set(".header", {
             display: "flex",
-            delay: duration
+            delay: duration,
+            onComplete: ()=>{
+                gsap.from(".header__menu", {
+                    duration: 0.3,
+                    y: "15%",
+                    opacity: 0
+                })
+            }
         })
-        gsap.set("body", {
+        gsap.set(["body", "html"], {
             "overflow-y": "auto",
             delay: duration
         })
+        setTimeout(() => {
+            document.getElementById("anim-wrapper").remove();
+        }, duration*1005);
     }
     setTimeout(enterAnim, 100);
     setTimeout(exitAnim, duration*1200);
