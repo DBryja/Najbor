@@ -80,7 +80,7 @@ h1.--404 {
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: black;
   font-weight: 500;
 }
@@ -276,7 +276,8 @@ input, .form-field * {
 
 .header {
   height: auto;
-  padding: 1rem 1rem;
+  padding: 1rem 1.5rem 1rem 1rem;
+  max-width: 100dvw;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -285,6 +286,7 @@ input, .form-field * {
   position: fixed;
   overflow: hidden;
   top: 0;
+  left: 0;
   z-index: 10;
 }
 @media (min-width: 768px) {
@@ -673,7 +675,7 @@ input, .form-field * {
   justify-content: center;
   height: clamp(50vh, 600px, 100vh);
   width: 100%;
-  margin: 3rem auto 0 auto;
+  margin: 0 auto;
   gap: 3rem;
 }
 @media (min-width: 1024px) {
@@ -696,12 +698,17 @@ input, .form-field * {
   width: 100%;
   height: 90%;
   justify-content: space-between;
-  padding-right: 3rem;
+  padding: 0 1rem;
+  row-gap: 1.5rem;
+}
+@media (min-width: 1024px) {
+  .form {
+    padding-right: 3rem;
+  }
 }
 
 .form-field {
   position: relative;
-  margin-bottom: 1.5rem;
   width: 100%;
 }
 .form-field:has(.form-field__input.filled) .form-field__label, .form-field:has(.form-field__input:focus) .form-field__label {
@@ -766,6 +773,7 @@ input, .form-field * {
 }
 
 .footer {
+  padding-bottom: 1rem;
   width: 100%;
   margin-bottom: 0;
   background-color: rgba(254, 0, 0, 0.05);
@@ -944,6 +952,10 @@ body:has(.menu__item.cursor--click:nth-child(even):hover) .cursor__arrow {
   transform: translate(-50%, -50%) rotate(180deg) !important;
 }
 
+html {
+  overflow-x: hidden !important;
+}
+
 body {
   background-color: #F8F9F3;
   font-family: Arial, sans-serif;
@@ -953,6 +965,7 @@ body {
   width: 100%;
   position: absolute;
   top: 0;
+  overflow-x: hidden !important;
 }
 
 body:has(.menu.active) {
@@ -969,6 +982,7 @@ main {
   display: grid;
   width: 100dvw;
   padding: 1rem 1rem;
+  margin-bottom: 3rem;
 }
 @media (min-width: 768px) {
   main {

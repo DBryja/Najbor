@@ -16,7 +16,9 @@
 @import "pagination";
 
 @import "cursor";
-
+html{
+    overflow-x: hidden !important;
+}
 body{
     background-color: $white;
     font-family: Arial, sans-serif;
@@ -26,7 +28,7 @@ body{
     width: 100%;
     position: absolute;
     top: 0;
-    //overflow:hidden;
+    overflow-x:hidden !important;
 }
 body:has(.menu.active){
     overflow: hidden!important;
@@ -45,5 +47,6 @@ main{
     @include breakpoint(md){
         padding: 1rem 2rem;
     }
+    margin-bottom: 3rem;
     //min-height: calc(100dvh - 10rem);
 }
