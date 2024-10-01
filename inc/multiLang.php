@@ -64,6 +64,20 @@ function ml_realisation(){
 	return array("pl" => "Realizacja", "fr" => "Réalisation", "en" => "Realisation");
 }
 
+function ml_alerts(){
+	return array(
+		"success"=> array(
+			"pl" => "Dziękuję za wiadomość!",
+			"en" => "Thank you for your message!",
+			"fr" => "Merci pour votre message!"
+		),
+		"error"=> array(
+			"pl" => "Wystąpił błąd, spróbuj ponownie.",
+			"en" => "An error occurred, please try again.",
+			"fr" => "Une erreur s'est produite, veuillez réessayer."
+		)
+	);
+}
 
 ?>
 
