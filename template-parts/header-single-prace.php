@@ -18,6 +18,30 @@ if ($language != "pl"){
 }
 ?>
 
-<a href="<?php echo get_term_link($term_slug, 'katprace'); ?>">
+<a href="<?php echo get_term_link($term_slug, 'katprace'); ?>" class="hideOnScroll">
 	<?php echo $term_name?>
 </a>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const hideOnScroll = document.querySelector('h3:has(.hideOnScroll)');
+        const header = document.querySelector('.header');
+        const headerHeight = header.offsetHeight;
+        const headerBottom = header.offsetTop + headerHeight;
+        let lastScroll = 0;
+        let currentScroll;
+
+        window.addEventListener('scroll', function() {
+            currentScroll = window.scrollY;
+
+            if (currentScroll > headerBottom) {
+                // Scroll down animation
+                gsap.to(hideOnScroll, { duration: 0.1, y: -20, opacity: 0, pointerEvents: "none", ease: 'none' });
+            } else {
+                // Scroll up animation
+                gsap.to(hideOnScroll, { duration: 0.1, y: 0, opacity: 1, pointerEvents: "all", ease: 'none' });
+            }
+
+            lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+        });
+    });
+</script>
