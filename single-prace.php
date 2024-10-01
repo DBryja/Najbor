@@ -8,39 +8,9 @@
  */
 get_header();
 $lang = get_site_language();
-$labels = array(
-	'metoda' => array(
-		'pl' => 'Metoda',
-		'en' => 'Method',
-		'fr' => 'Méthode'
-	),
-	'wymiary' => array(
-		'pl' => 'Wymiary',
-		'en' => 'Dimensions',
-		'fr' => 'Dimensions'
-	),
-	'oprawa' => array(
-		'pl' => 'Oprawa',
-		'en' => 'Framing',
-		'fr' => 'Encadrement'
-	),
-	'rok_powstania' => array(
-		'pl' => 'Rok powstania',
-		'en' => 'Year of creation',
-		'fr' => 'Année de création'
-	),
-    "na_sprzedaz" => array(
-        "pl" => "Dostępność",
-        "en" => "Availability",
-        "fr" => "Disponibilité"
-    ),
-);
-$languages = [ 'pl', 'en', 'fr' ];
-$for_sale= array(
-    'pl' => 'Na sprzedaż',
-    'en' => 'For sale',
-    'fr' => 'À vendre'
-);
+$labels = ml_single_labels();
+$languages = ml_languages();
+$for_sale= ml_for_sale();
 function get_value_with_fallback( $acf, $field, $lang) {
 	global $languages;
 
@@ -68,10 +38,11 @@ $ID = get_the_ID() ? get_the_ID() : the_ID();
 $acf = get_praca_data( $ID );
 $orientation = $acf["obraz"]["width"] > $acf["obraz"]["height"]*1.3 ? "landscape" : "portrait";
 $url = $acf["obraz"]["url"];
+$forSale = ml_for_sale();
 ?>
 <div class="single <?php echo $orientation?>">
     <article id="post-<?php echo $ID; ?>" <?php post_class(); ?>>
-        <div class="single__image">
+        <div class="single__image" data-forSale="<?php echo $forSale[$lang]?>">
             <picture>
                 <source srcset="<?php echo $url;?>.webp" type="image/webp">
                 <source srcset="<?php echo $url; ?>" type="image/jpeg">

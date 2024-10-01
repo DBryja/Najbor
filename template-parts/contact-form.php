@@ -1,16 +1,7 @@
 <?php
 $language = get_site_language();
-$fields = array(
-	'name' => array("pl"=>"Imię", "en"=>"Name", "fr"=>"Nom"),
-	'email' => array("pl"=>"Email", "en"=>"Email", "fr"=>"Email"),
-	'subject' => array("pl"=>"Temat", "en"=>"Subject", "fr"=>"Sujet"),
-	'message' => array("pl"=>"Wiadomość", "en"=>"Message", "fr"=>"Message")
-);
-$heading = array(
-    "pl" => "Zamówienia, Zlecenia, Zapytania",
-    "en" => "Orders, Offers, Inquiries",
-    "fr" => "Commandes, Contrats, Consultations"
-);
+$fields = ml_form_fields();
+$heading = ml_contact_heading();
 
 if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	$name = sanitize_text_field( $_POST['name'] );

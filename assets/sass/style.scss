@@ -69,3 +69,17 @@ main{
     color: $black;
     z-index: 1;
 }
+
+*:has([data-forSale]){
+    position: relative;
+}
+[data-forSale]::after{
+    content: attr(data-forSale);
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $red;
+    color: $white;
+    padding: 0.5rem;
+    @include playfair-display;
+}

@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const items = document.querySelectorAll('.prace-archive__item');
+    if(!items) return;
     items.forEach(item => {
         const shape = item.getAttribute('data-shape');
         let startColumn, endColumn, span;
@@ -28,3 +29,4 @@ document.addEventListener('DOMContentLoaded', function () {
         item.style.gridColumnEnd = endColumn;
     });
 });
+

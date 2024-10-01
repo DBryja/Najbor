@@ -1,13 +1,22 @@
+<?php
+$lang = get_site_language();
+$forSale = ml_for_sale();
+?>
+
 <div class="container">
 	<?php if ( have_posts() ) : ?>
 		<div class="prace-archive">
 			<?php while ( have_posts() ) : the_post();
 				$ID = get_the_ID();
 				$image = get_field("Obraz", $ID);
+                $forSaleAttrib='';
+                if(get_field("na_sprzedaz", $ID) == 1) {
+                    $forSaleAttrib='data-forSale="'.$forSale[$lang].'"';
+                }
 				?>
 				<div class="prace-archive__row" id="<?php echo $ID; ?>">
 					<article class="prace-archive__item" data-shape="<?php echo get_image_shape($image["width"], $image["height"]); ?>">
-						<a href="<?php the_permalink(); ?>">
+						<a href="<?php the_permalink();?>" <?php echo $forSaleAttrib?>>
 							<picture>
 								<source srcset="<?php echo $image["url"]?>.webp" type="image/webp">
 								<source srcset="<?php echo $image["url"]?>" type="image/jpeg">
