@@ -11,26 +11,6 @@ $lang = get_site_language();
 $labels = ml_single_labels();
 $languages = ml_languages();
 $for_sale= ml_for_sale();
-function get_value_with_fallback( $acf, $field, $lang) {
-	global $languages;
-
-	if (!empty($acf[$field][$lang]) && is_string($acf[$field][$lang])) {
-		return $acf[$field][$lang];
-	}
-    elseif (!empty($acf[$field]) && is_string($acf[$field])) {
-		return $acf[$field];
-	}
-    elseif (!empty($acf[$field]) && is_bool($acf[$field])) {
-	    return $acf[$field];
-    }
-	else {
-		foreach ( $languages as $fallback_lang ) {
-			if (!empty($acf[$field][$fallback_lang] ) && is_string($acf[$field][$fallback_lang] ) )
-				return $acf[$field][$fallback_lang];
-		}
-	}
-	return '';
-}
 ?>
 
 <?php while ( have_posts() ) : the_post();
@@ -38,11 +18,11 @@ $ID = get_the_ID() ? get_the_ID() : the_ID();
 $acf = get_praca_data( $ID );
 $orientation = $acf["obraz"]["width"] > $acf["obraz"]["height"]*1.3 ? "landscape" : "portrait";
 $url = $acf["obraz"]["url"];
-$forSale = ml_for_sale();
+$forSaleAttrib=get_forSale_attrib($ID, $for_sale[$lang]);
 ?>
 <div class="single <?php echo $orientation?>">
     <article id="post-<?php echo $ID; ?>" <?php post_class(); ?>>
-        <div class="single__image" data-forSale="<?php echo $forSale[$lang]?>">
+        <div class="single__image" <?php echo $forSaleAttrib?> >
             <picture>
                 <source srcset="<?php echo $url;?>.webp" type="image/webp">
                 <source srcset="<?php echo $url; ?>" type="image/jpeg">

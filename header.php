@@ -1,41 +1,227 @@
 <!DOCTYPE html>
-<html lang="en">
+<?php
+    $lang = get_site_language();
+    $description = ml_meta_description();
+    $title = ml_meta_title();
+?>
+<html lang="<?php echo $lang ?>">
 <head>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="pl,en,fr">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Odkryj fascynujący świat sztuki Wiktora Najbora. Zobacz jego wyjątkowe obrazy i projekty artystyczne, które łączą pasję z unikalnym stylem. Przeglądaj galerię dzieł, poznaj artystę i zanurz się w kreatywnym świecie Wiktora Najbora. Idealne dla miłośników sztuki i kolekcjonerów.">
     <meta name="author" content="https://github.com/dbryja">
-    <link rel="shortcut icon" href="/assets/images/logo.png">
+    <link rel="shortcut icon" href="<?php echo get_site_icon_url()?>">
+    <meta name="description" content="<?php echo $description[$lang]?>">
+    <meta property="og:locale" content="<?php echo ml_returnLocale($lang)?>">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Najbor.pl">
+    <meta name="twitter:card" content="summary_large_image" class="yoast-seo-meta-tag">
+
+    <!--dynamic-->
+	<?php get_template_part("template-parts/head", "meta") ?>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "CollectionPage",
+                    "@id": "http://localhost/wordpress/",
+                    "url": "http://localhost/wordpress/",
+                    "name": [
+                        {
+                            "@language": "pl",
+                            "@value": "Wiktor Najbor – Twórczość, która przenosi w inny wymiar."
+                        },
+                        {
+                            "@language": "en",
+                            "@value": "Wiktor Najbor – Art that transcends dimensions."
+                        },
+                        {
+                            "@language": "fr",
+                            "@value": "Wiktor Najbor – L'art qui transcende les dimensions."
+                        }
+                    ],
+                    "isPartOf": {
+                        "@id": "http://localhost/wordpress/#website"
+                    },
+                    "about": {
+                        "@id": "http://localhost/wordpress/#organization"
+                    },
+                    "description": [
+                      {
+                        "@language": "pl",
+                        "@value":"Odkryj fascynujący świat sztuki Wiktora Najbora. Zobacz jego wyjątkowe obrazy i projekty artystyczne, które łączą pasję z unikalnym stylem. Przeglądaj galerię dzieł, poznaj artystę i zanurz się w kreatywnym świecie Wiktora Najbora."
+                      },
+                        {
+                            "@language": "en",
+                            "@value":"Discover the fascinating world of Wiktor Najbor's art. Explore his unique paintings and artistic projects that blend passion with a distinctive style. Browse the gallery of works, get to know the artist, and immerse yourself in Wiktor Najbor's creative world."
+                        },
+                        {
+                            "@language": "pl",
+                            "@value":"Découvrez le monde fascinant de l'art de Wiktor Najbor. Explorez ses peintures uniques et ses projets artistiques qui allient passion et style distinctif. Parcourez la galerie des œuvres, faites connaissance avec l'artiste et plongez dans le monde créatif de Wiktor Najbor."
+                        }
+                    ],
+                    "breadcrumb": {
+                        "@id": "http://localhost/wordpress/#breadcrumb"
+                    },
+                    "inLanguage": ["pl-PL", "en-US", "fr-FR"]
+                },
+                {
+                    "@type": "BreadcrumbList",
+                    "@id": "http://localhost/wordpress/#breadcrumb",
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": [
+                                {
+                                    "@language": "pl",
+                                    "@value": "Start"
+                                },
+                                {
+                                    "@language": "en",
+                                    "@value": "Home"
+                                },
+                                {
+                                    "@language": "fr",
+                                    "@value": "Accueil"
+                                }
+                            ],
+                            "item": "http://localhost/wordpress/"
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": [
+                                {
+                                    "@language": "pl",
+                                    "@value": "Prace"
+                                },
+                                {
+                                    "@language": "en",
+                                    "@value": "Works"
+                                },
+                                {
+                                    "@language": "fr",
+                                    "@value": "Travaux"
+                                }
+                            ],
+                            "item": "http://localhost/wordpress/prace"
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": [
+                                {
+                                    "@language": "pl",
+                                    "@value": "Kontakt"
+                                },
+                                {
+                                    "@language": "en",
+                                    "@value": "Contact"
+                                },
+                                {
+                                    "@language": "fr",
+                                    "@value": "Contact"
+                                }
+                            ],
+                            "item": "http://localhost/wordpress/kontakt"
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 4,
+                            "name": [
+                                {
+                                    "@language": "pl",
+                                    "@value": "Na Sprzedaż"
+                                },
+                                {
+                                    "@language": "en",
+                                    "@value": "For Sale"
+                                },
+                                {
+                                    "@language": "fr",
+                                    "@value": "à Vendre"
+                                }
+                            ],
+                            "item": "http://localhost/wordpress/na-sprzedaz"
+                        }
+                    ]
+                },
+                {
+                    "@type": "WebSite",
+                    "@id": "http://localhost/wordpress/#website",
+                    "url": "http://localhost/wordpress/",
+                    "name": "Najbor",
+                    "description": [
+                        {
+                            "@language": "pl",
+                            "@value": "Wiktor Najbor – Twórczość, która przenosi w inny wymiar."
+                        },
+                        {
+                            "@language": "en",
+                            "@value": "Wiktor Najbor – Art that transcends dimensions."
+                        },
+                        {
+                            "@language": "fr",
+                            "@value": "Wiktor Najbor – L'art qui transcende les dimensions."
+                        }
+                    ],
+                    "publisher": {
+                        "@id": "http://localhost/wordpress/#organization"
+                    },
+                    "potentialAction": [
+                        {
+                            "@type": "ViewAction",
+                            "target": [
+                                {
+                                    "@type": "EntryPoint",
+                                    "urlTemplate": "http://localhost/wordpress/{category}/{post_title}"
+                                },
+                                {
+                                    "@type": "EntryPoint",
+                                    "urlTemplate": "http://localhost/wordpress/{category}"
+                                }
+                            ]
+                        }
+                    ],
+                    "inLanguage": ["pl-PL", "en-US", "fr-FR"]
+                },
+                {
+                    "@type": "Organization",
+                    "@id": "http://localhost/wordpress/#organization",
+                    "name": "Wiktor Najbor",
+                    "url": "http://localhost/wordpress/",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "inLanguage": ["pl-PL", "en-US", "fr-FR"],
+                        "@id": "http://localhost/wordpress/#/schema/logo/image/",
+                        "url": "http://localhost/wordpress/wp-content/uploads/2024/07/cropped-logo-150x150-1.png",
+                        "contentUrl": "http://localhost/wordpress/wp-content/uploads/2024/07/cropped-logo-150x150-1.png",
+                        "width": 152,
+                        "height": 152,
+                        "caption": "Wiktor Najbor"
+                    },
+                    "image": {
+                        "@id": "http://localhost/wordpress/#/schema/logo/image/"
+                    },
+                    "sameAs": [
+                        "https://www.facebook.com/profile.php?id=100063761825254"
+                    ]
+                }
+            ]
+        }
+    </script>
 
     <?php
     wp_head();
     $language = get_site_language();
     $home = get_home_url();
 
-    $labels = array(
-	    'home' => array(
-		    'pl' => 'Start',
-		    'en' => 'Homepage',
-		    'fr' => 'Accueil'
-	    ),
-	    'prace' => array(
-		    'pl' => 'Prace',
-		    'en' => 'Works',
-		    'fr' => 'Travaux'
-	    ),
-	    'kontakt' => array(
-		    'pl' => 'Kontakt',
-		    'en' => 'Contact',
-		    'fr' => 'Contact'
-	    ),
-	    'na_sprzedaz' => array(
-		    'pl' => 'Na Sprzedaż',
-		    'en' => 'For Sale',
-		    'fr' => 'à Vendre'
-	    )
-    );
+    $labels = ml_menuItems();
     ?>
 </head>
 

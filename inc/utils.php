@@ -5,6 +5,26 @@ function get_site_language() {
 	}
 	return 'pl'; // domyślny język
 }
+function get_value_with_fallback( $acf, $field, $lang) {
+	$languages = ml_languages();
+
+	if (!empty($acf[$field][$lang]) && is_string($acf[$field][$lang])) {
+		return $acf[$field][$lang];
+	}
+	elseif (!empty($acf[$field]) && is_string($acf[$field])) {
+		return $acf[$field];
+	}
+	elseif (!empty($acf[$field]) && is_bool($acf[$field])) {
+		return $acf[$field];
+	}
+	else {
+		foreach ( $languages as $fallback_lang ) {
+			if (!empty($acf[$field][$fallback_lang] ) && is_string($acf[$field][$fallback_lang] ) )
+				return $acf[$field][$fallback_lang];
+		}
+	}
+	return '';
+}
 function get_katprace_categories_with_translations() {
 	$categories = get_terms([
 		'taxonomy' => 'katprace',
@@ -36,7 +56,25 @@ function get_katprace_categories_with_translations() {
 
 	return $categories_with_translations;
 }
-
+function get_katprace_object($lang = 'pl'){
+	$queried_object = get_queried_object();
+	$terms = get_the_terms( get_the_ID(), 'katprace' );
+	$working_object = $queried_object;
+	if ( $terms && !is_wp_error( $terms ) ) {
+		$working_object = $terms[0];
+	}
+	$term_id = $working_object->term_id;
+	$term_name = $working_object->name;
+	$term_slug = $working_object->slug;
+	if ($lang != "pl"){
+		$term_name = get_field($lang, 'katprace_' . $term_id);
+	}
+	return array(
+		'name' => $term_name,
+		'slug' => $term_slug,
+		'term_id' => $term_id
+	);
+}
 function get_heading_template() {
 	if (is_front_page() || is_home()) {
 		get_template_part('template-parts/header', 'home');
@@ -100,6 +138,27 @@ function get_image_shape($width, $height) {
 	}
 }
 
+function get_forSale_attrib($ID, $translation){
+	$na_sprzedaz = get_post_meta($ID, 'na_sprzedaz', true);
+
+	if($na_sprzedaz == '1') {
+		return 'data-forSale="'.esc_attr($translation).'" aria-label="'.esc_attr($translation).'"';
+	} else {
+		return '';
+	}
+}
+
+function get_fullUrl(){
+	// Program to display URL of current page.
+	if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+		$link = "https";
+	else
+		$link = "http";
+	$link .= "://";
+	$link .= $_SERVER['HTTP_HOST'];
+	$link .= $_SERVER['REQUEST_URI'];
+	return $link;
+}
 function send_email(){
 	if ( $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'send_email' ) {
 		$name = sanitize_text_field( $_POST['name'] );
