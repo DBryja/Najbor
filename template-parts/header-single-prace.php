@@ -26,7 +26,7 @@ if ($language != "pl"){
         const hideOnScroll = document.querySelector('h3:has(.hideOnScroll)');
         const header = document.querySelector('.header');
         const headerHeight = header.offsetHeight;
-        const headerBottom = header.offsetTop + headerHeight;
+        const headerBottom = header.offsetTop + headerHeight/2;
         let lastScroll = 0;
         let currentScroll;
 

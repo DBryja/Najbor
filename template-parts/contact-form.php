@@ -37,9 +37,19 @@ $alerts = ml_alerts();
 			<label class="form-field__label" for="message"><?php echo $fields["message"][$language]?></label><br>
 			<textarea class="form-field__input form-field__input--textarea" id="message" name="message" rows="5" required></textarea><br>
 		</div>
-		<button type="submit" class="form-field__submit cursor--click">
-            <span class="arrow"></span>
-		</button>
+        <div class="form-field form-field__row">
+            <div class="links">
+                <a href="https://www.facebook.com/profile.php?id=100063761825254">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+                <a href="mailto: wiktornajbor@gmail.com">
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
+            </div>
+            <button type="submit" class="form-field__submit cursor--click">
+                <span class="arrow"></span>
+            </button>
+        </div>
 	</form>
 </div>
 <script>
@@ -70,6 +80,9 @@ $alerts = ml_alerts();
     form.addEventListener('submit', function(event) {
         event.preventDefault();
 
+        cursor.classList.add("loading");
+        form.querySelector("button").disabled = true;
+
         const formData = new FormData(this);
         formData.append('action', 'send_email');
 
@@ -88,6 +101,10 @@ $alerts = ml_alerts();
             })
             .catch(error => {
                 document.getElementById('formResponse').innerHTML = "<p>Error sending form:" + error +"</p>";
+            })
+            .finally(() => {
+                cursor.classList.remove("loading");
+                form.querySelector("button").disabled = false;
             });
     });
 

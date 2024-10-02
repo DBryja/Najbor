@@ -111,10 +111,10 @@ function send_email(){
 		$to = get_option( 'admin_email' );
 		$headers = array('Content-Type: text/html; charset=UTF-8');
 		$body = "
-            <strong>Email:</strong> {$email}<br/>
-            <strong>Name:</strong> {$name}<br/>
-            <strong>Page Title:</strong> {$page_title}<br/>
-            <strong>Message:</strong><br>{$message}
+            <strong>Adres do odpowiedzi:</strong> {$email}<br/>
+            <strong>Imię i nazwisko:</strong> {$name}<br/>
+            <strong>Wysłano ze strony:</strong> {$page_title}<br/>
+            <strong>Treść wiadomości:</strong><br>{$message}
         ";
 
 		if ( wp_mail( $to, $subject, $body, $headers ) ) {
