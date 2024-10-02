@@ -5,49 +5,49 @@ $heading = ml_contact_heading();
 $alerts = ml_alerts();
 ?>
 
-<div class="alert alert--success" style="display: none;">
-    <div class="alert-icon"></div>
+<div class="alert alert--success" style="display: none;" role="alert" aria-live="polite">
+    <div class="alert-icon" aria-hidden="true"></div>
     <p class="alert-message"><?php echo $alerts["success"][$language]?></p>
 </div>
-<div class="alert alert--error" style="display: flex;">
-    <div class="alert-icon"></div>
+<div class="alert alert--error" style="display: flex;" role="alert" aria-live="polite">
+    <div class="alert-icon" aria-hidden="true"></div>
     <p class="alert-message"><?php echo $alerts["error"][$language]?></p>
 </div>
 
 <div class="contact">
-    <div class="contact__decoration"></div>
-    <form method="POST" action="" class="form" id="contactForm">
-        <h2>
+    <div class="contact__decoration" aria-hidden="true"></div>
+    <form method="POST" action="" class="form" id="contactForm" aria-labelledby="formHeading">
+        <h2 id="formHeading">
             <?php echo $heading[$language]?>
         </h2>
         <input type="hidden" id="page-title" name="page_title"/>
         <div class="form-field form-field__wrapper">
             <label class="form-field__label" for="name"><?php echo $fields["name"][$language]?></label><br>
-			<input class="form-field__input" type="text" id="name" name="name" required><br>
+			<input class="form-field__input" type="text" id="name" name="name" required aria-required="true"><br>
 		</div>
 		<div class="form-field form-field__wrapper">
 			<label class="form-field__label" for="email"><?php echo $fields["email"][$language]?></label><br>
-			<input class="form-field__input" type="email" id="email" name="email" required><br>
+			<input class="form-field__input" type="email" id="email" name="email" required aria-required="true"><br>
 		</div>
 		<div class="form-field form-field__wrapper">
 			<label class="form-field__label" for="subject"><?php echo $fields["subject"][$language]?></label><br>
-			<input class="form-field__input" type="text" id="subject" name="subject" required><br>
+			<input class="form-field__input" type="text" id="subject" name="subject" required aria-required="true"><br>
 		</div>
 		<div class="form-field form-field__wrapper">
 			<label class="form-field__label" for="message"><?php echo $fields["message"][$language]?></label><br>
-			<textarea class="form-field__input form-field__input--textarea" id="message" name="message" rows="5" required></textarea><br>
+			<textarea class="form-field__input form-field__input--textarea" id="message" name="message" rows="5" required aria-required="true"></textarea><br>
 		</div>
         <div class="form-field form-field__row">
-            <div class="links">
-                <a href="https://www.facebook.com/profile.php?id=100063761825254">
-                    <i class="fa-brands fa-facebook"></i>
+            <div class="links" role="group" aria-label="Social Links">
+                <a href="https://www.facebook.com/profile.php?id=100063761825254" aria-label="Facebook">
+                    <i class="fa-brands fa-facebook" aria-hidden="true"></i>
                 </a>
-                <a href="mailto: wiktornajbor@gmail.com">
+                <a href="mailto: wiktornajbor@gmail.com" aria-label="e-mail">
                     <i class="fa-solid fa-envelope"></i>
                 </a>
             </div>
-            <button type="submit" class="form-field__submit cursor--click">
-                <span class="arrow"></span>
+            <button type="submit" class="form-field__submit cursor--click" aria-label="Submit form">
+                <span class="arrow" aria-hidden="true"></span>
             </button>
         </div>
 	</form>

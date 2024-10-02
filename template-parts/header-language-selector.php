@@ -24,6 +24,15 @@
 </form>
 
 <script>
+    // const userLanguage = navigator.language || navigator.userLanguage;
+    // const supportedLanguages = ['pl', 'en', 'fr'];
+    // const languageCode = userLanguage.substring(0, 2);
+    // const currentLanguage = document.cookie.split('; ').find(row => row.startsWith('site_language=')).split('=')[1];
+    // if (supportedLanguages.includes(languageCode) && currentLanguage !== languageCode) {
+    //     document.cookie = "site_language=" + languageCode + "; path=/";
+    //     location.reload();
+    // }
+
     document.querySelectorAll('input[name="language"]').forEach(function(radio) {
         radio.addEventListener('change', function() {
             const selectedLanguage = this.value;

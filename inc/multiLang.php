@@ -79,5 +79,56 @@ function ml_alerts(){
 	);
 }
 
+function ml_meta_description(){
+	return array(
+		"pl"=>"Odkryj fascynujący świat sztuki Wiktora Najbora. Zobacz jego wyjątkowe obrazy i projekty artystyczne, które łączą pasję z unikalnym stylem. Przeglądaj galerię dzieł, poznaj artystę i zanurz się w kreatywnym świecie Wiktora Najbora.",
+		"en"=>"Discover the fascinating world of Wiktor Najbor's art. Explore his unique paintings and artistic projects that blend passion with a distinctive style. Browse the gallery of works, get to know the artist, and immerse yourself in Wiktor Najbor's creative world.",
+		"fr"=>"Découvrez le monde fascinant de l'art de Wiktor Najbor. Explorez ses peintures uniques et ses projets artistiques qui allient passion et style distinctif. Parcourez la galerie des œuvres, faites connaissance avec l'artiste et plongez dans le monde créatif de Wiktor Najbor."
+	);
+}
+function ml_meta_title(){
+	return array(
+		"pl"=>"Wiktor Najbor – Twórczość, która przenosi w inny wymiar.",
+		"en"=>"Wiktor Najbor – Art that transcends dimensions.",
+		"fr"=>"Wiktor Najbor – L'art qui transcende les dimensions."
+	);
+}
+
+function ml_returnLocale($lang){
+	switch($lang){
+		case 'pl':
+			return 'pl_PL';
+		case 'en':
+			return 'en_US';
+		case 'fr':
+			return 'fr_FR';
+	}
+}
+
+function ml_menuItems(){
+	return array(
+		'home' => array(
+			'pl' => 'Start',
+			'en' => 'Homepage',
+			'fr' => 'Accueil'
+		),
+		'prace' => array(
+			'pl' => 'Prace',
+			'en' => 'Works',
+			'fr' => 'Travaux'
+		),
+		'kontakt' => array(
+			'pl' => 'Kontakt',
+			'en' => 'Contact',
+			'fr' => 'Contact'
+		),
+		'na_sprzedaz' => array(
+			'pl' => 'Na Sprzedaż',
+			'en' => 'For Sale',
+			'fr' => 'à Vendre'
+		)
+	);
+}
+
 ?>
 

@@ -1,6 +1,6 @@
 <?php
 $lang = get_site_language();
-$forSale = ml_for_sale();
+$for_sale = ml_for_sale();
 ?>
 
 <div class="container">
@@ -9,10 +9,7 @@ $forSale = ml_for_sale();
 			<?php while ( have_posts() ) : the_post();
 				$ID = get_the_ID();
 				$image = get_field("Obraz", $ID);
-                $forSaleAttrib='';
-                if(get_field("na_sprzedaz", $ID) == 1) {
-                    $forSaleAttrib='data-forSale="'.$forSale[$lang].'"';
-                }
+				$forSaleAttrib=get_forSale_attrib($ID, $for_sale[$lang]);
 				?>
 				<div class="prace-archive__row" id="<?php echo $ID; ?>">
 					<article class="prace-archive__item" data-shape="<?php echo get_image_shape($image["width"], $image["height"]); ?>">
