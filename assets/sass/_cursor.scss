@@ -48,13 +48,29 @@
     display: flex;
     opacity: 0;
     z-index: $z-cursor-icon;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease 0s, opacity 0.2s ease 0s, scale 0.2s ease 0s;
     svg{
         width: 100%;
         height: 100%;
     }
   }
+
+  &.loading{
+    .cursor__arrow{
+      opacity: 1;
+      animation: rotate-loader infinite 1s ease-in-out;
+    }
+  }
 }
+@keyframes rotate-loader {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg) scale(0.95);
+  }
+  to{
+    transform: translate(-50%, -50%) rotate(360deg) scale(1.05);
+  }
+}
+
 
 body:has(div.menu.active:hover){
   cursor: pointer;
@@ -70,7 +86,7 @@ body:has(div.menu.active:hover){
 .cursor--click:hover, .cursor--img:hover, a{
   cursor: pointer;
 }
-body:has(.cursor--click:hover), body:has(a:hover){
+body:has(.cursor--click:hover, a:hover){
   .cursor{
     width: 3rem;
     &__arrow{

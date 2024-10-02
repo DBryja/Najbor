@@ -99,4 +99,32 @@ function get_image_shape($width, $height) {
 		return 'very-wide';
 	}
 }
+
+function send_email(){
+	if ( $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'send_email' ) {
+		$name = sanitize_text_field( $_POST['name'] );
+		$email = sanitize_email( $_POST['email'] );
+		$subject = sanitize_text_field( $_POST['subject'] );
+		$message = sanitize_textarea_field( $_POST['message'] );
+		$page_title = sanitize_text_field( $_POST['page_title'] );
+
+		$to = get_option( 'admin_email' );
+		$headers = array('Content-Type: text/html; charset=UTF-8');
+		$body = "
+            <strong>Adres do odpowiedzi:</strong> {$email}<br/>
+            <strong>Imię i nazwisko:</strong> {$name}<br/>
+            <strong>Wysłano ze strony:</strong> {$page_title}<br/>
+            <strong>Treść wiadomości:</strong><br>{$message}
+        ";
+
+		if ( wp_mail( $to, $subject, $body, $headers ) ) {
+			wp_send_json_success( 'Email sent successfully!' );
+		} else {
+			wp_send_json_error( 'Failed to send email.' );
+		}
+		exit;
+	}
+}
+add_action('wp_ajax_nopriv_send_email', 'send_email');
+add_action('wp_ajax_send_email', 'send_email');
 ?>

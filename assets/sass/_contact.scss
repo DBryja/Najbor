@@ -73,14 +73,19 @@ $halfBlack: transparentize($black, 0.5);
     justify-content: right;
     align-items: center;
     position: relative;
+    --arrow-color: rgba(0,0,0,1);
+
+    &[disabled]{
+       --arrow-color: rgba(0,0,0,0.3);
+    }
 
     .arrow {
       display: block;
       margin: 30px auto;
       width: 15px;
       height: 15px;
-      border-top: 2px solid #000;
-      border-left: 2px solid #000;
+      border-top: 2px solid var(--arrow-color);
+      border-left: 2px solid var(--arrow-color);
       transform: rotate(135deg);
       position: absolute;
       right: 32px;
@@ -93,12 +98,12 @@ $halfBlack: transparentize($black, 0.5);
       display: block;
       width: 2px;
       height: 70px;
-      background-color: black;
+      background-color: var(--arrow-color);
       transform: rotate(-45deg) translate(24px, 8px);
       transition: transform 0.3s;
     }
 
-    &:hover {
+    &:not([disabled]):hover {
       .arrow::after{
         transform: rotate(-45deg) translate(24px, 16px) scaleY(1.2);
       }
@@ -107,5 +112,28 @@ $halfBlack: transparentize($black, 0.5);
       }
     }
 
+  }
+  &__row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+    .links{
+        display: flex;
+        gap: 1rem;
+      a{
+        transition: color 0.2s ease;
+      }
+      &:has(a:hover){
+        a:not(:hover){
+          opacity: 0.6;
+        }
+      }
+
+      i{
+        font-size: 2rem;
+      }
+    }
   }
 }
