@@ -75,11 +75,13 @@ function runGSAP(){
             display: "flex",
             delay: duration,
             onComplete: ()=>{
-                gsap.from(".header__menu", {
+                gsap.from(".header__right .anim", {
                     duration: 0.3,
                     y: "15%",
-                    opacity: 0
-                })
+                    opacity: 0,
+                    stagger: 0.2,
+                    delay: 0.2
+                });
             }
         })
         gsap.set(["body", "html"], {

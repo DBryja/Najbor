@@ -15,7 +15,7 @@
         $title =  $pageLabels["kontakt"][$lang]." | Najbor";
     }
     else if(is_page('na-sprzedaz')){
-        $title = $pageLabels["na-sprzedaz"][$lang]." | Najbor";
+        $title = $pageLabels["na_sprzedaz"][$lang]." | Najbor";
     }
     elseif (is_post_type_archive('prace')) {
 		$title = $pageLabels["prace"][$lang]." | Najbor";

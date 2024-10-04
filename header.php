@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <?php
-    $lang = get_site_language();
+    $language = get_site_language();
     $description = ml_meta_description();
     $title = ml_meta_title();
 ?>
-<html lang="<?php echo $lang ?>">
+<html lang="<?php echo $language ?>">
 <head>
     <!-- Meta -->
     <meta charset="utf-8">
@@ -13,8 +13,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="https://github.com/dbryja">
     <link rel="shortcut icon" href="<?php echo get_site_icon_url()?>">
-    <meta name="description" content="<?php echo $description[$lang]?>">
-    <meta property="og:locale" content="<?php echo ml_returnLocale($lang)?>">
+    <meta name="description" content="<?php echo $description[$language]?>">
+    <meta property="og:locale" content="<?php echo ml_returnLocale($language)?>">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Najbor.pl">
     <meta name="twitter:card" content="summary_large_image" class="yoast-seo-meta-tag">
@@ -28,8 +28,8 @@
             "@graph": [
                 {
                     "@type": "CollectionPage",
-                    "@id": "http://localhost/wordpress/",
-                    "url": "http://localhost/wordpress/",
+                    "@id": "<?php echo WP_HOME?>/",
+                    "url": "<?php echo WP_HOME?>/",
                     "name": [
                         {
                             "@language": "pl",
@@ -45,10 +45,10 @@
                         }
                     ],
                     "isPartOf": {
-                        "@id": "http://localhost/wordpress/#website"
+                        "@id": "<?php echo WP_HOME?>/#website"
                     },
                     "about": {
-                        "@id": "http://localhost/wordpress/#organization"
+                        "@id": "<?php echo WP_HOME?>/#organization"
                     },
                     "description": [
                       {
@@ -65,13 +65,13 @@
                         }
                     ],
                     "breadcrumb": {
-                        "@id": "http://localhost/wordpress/#breadcrumb"
+                        "@id": "<?php echo WP_HOME?>/#breadcrumb"
                     },
                     "inLanguage": ["pl-PL", "en-US", "fr-FR"]
                 },
                 {
                     "@type": "BreadcrumbList",
-                    "@id": "http://localhost/wordpress/#breadcrumb",
+                    "@id": "<?php echo WP_HOME?>/#breadcrumb",
                     "itemListElement": [
                         {
                             "@type": "ListItem",
@@ -90,7 +90,7 @@
                                     "@value": "Accueil"
                                 }
                             ],
-                            "item": "http://localhost/wordpress/"
+                            "item": "<?php echo WP_HOME?>/"
                         },
                         {
                             "@type": "ListItem",
@@ -109,7 +109,7 @@
                                     "@value": "Travaux"
                                 }
                             ],
-                            "item": "http://localhost/wordpress/prace"
+                            "item": "<?php echo WP_HOME ?>/prace"
                         },
                         {
                             "@type": "ListItem",
@@ -128,7 +128,7 @@
                                     "@value": "Contact"
                                 }
                             ],
-                            "item": "http://localhost/wordpress/kontakt"
+                            "item": "<?php echo WP_HOME?>/kontakt"
                         },
                         {
                             "@type": "ListItem",
@@ -147,14 +147,14 @@
                                     "@value": "à Vendre"
                                 }
                             ],
-                            "item": "http://localhost/wordpress/na-sprzedaz"
+                            "item": "<?php echo WP_HOME?>/na-sprzedaz"
                         }
                     ]
                 },
                 {
                     "@type": "WebSite",
-                    "@id": "http://localhost/wordpress/#website",
-                    "url": "http://localhost/wordpress/",
+                    "@id": "<?php echo WP_HOME?>/#website",
+                    "url": "<?php echo WP_HOME?>/",
                     "name": "Najbor",
                     "description": [
                         {
@@ -171,7 +171,7 @@
                         }
                     ],
                     "publisher": {
-                        "@id": "http://localhost/wordpress/#organization"
+                        "@id": "<?php echo WP_HOME?>/#organization"
                     },
                     "potentialAction": [
                         {
@@ -179,11 +179,11 @@
                             "target": [
                                 {
                                     "@type": "EntryPoint",
-                                    "urlTemplate": "http://localhost/wordpress/{category}/{post_title}"
+                                    "urlTemplate": "<?php echo WP_HOME?>/{category}/{post_title}"
                                 },
                                 {
                                     "@type": "EntryPoint",
-                                    "urlTemplate": "http://localhost/wordpress/{category}"
+                                    "urlTemplate": "<?php echo WP_HOME?>/{category}"
                                 }
                             ]
                         }
@@ -192,21 +192,21 @@
                 },
                 {
                     "@type": "Organization",
-                    "@id": "http://localhost/wordpress/#organization",
+                    "@id": "<?php echo WP_HOME?>/#organization",
                     "name": "Wiktor Najbor",
-                    "url": "http://localhost/wordpress/",
+                    "url": "<?php echo WP_HOME?>/",
                     "logo": {
                         "@type": "ImageObject",
                         "inLanguage": ["pl-PL", "en-US", "fr-FR"],
-                        "@id": "http://localhost/wordpress/#/schema/logo/image/",
-                        "url": "http://localhost/wordpress/wp-content/uploads/2024/07/cropped-logo-150x150-1.png",
-                        "contentUrl": "http://localhost/wordpress/wp-content/uploads/2024/07/cropped-logo-150x150-1.png",
+                        "@id": "<?php echo WP_HOME?>/#/schema/logo/image/",
+                        "url": "<?php echo WP_HOME?>/wp-content/uploads/2024/07/cropped-logo-150x150-1.png",
+                        "contentUrl": "<?php echo WP_HOME?>/wp-content/uploads/2024/07/cropped-logo-150x150-1.png",
                         "width": 152,
                         "height": 152,
                         "caption": "Wiktor Najbor"
                     },
                     "image": {
-                        "@id": "http://localhost/wordpress/#/schema/logo/image/"
+                        "@id": "<?php echo WP_HOME?>/#/schema/logo/image/"
                     },
                     "sameAs": [
                         "https://www.facebook.com/profile.php?id=100063761825254"
@@ -218,7 +218,6 @@
 
     <?php
     wp_head();
-    $language = get_site_language();
     $home = get_home_url();
 
     $labels = ml_menuItems();
@@ -238,20 +237,20 @@
     <h3>
         <?php get_heading_template(); ?>
     </h3>
-    <button class="header__menu cursor--click">
-        <h4>
-        menu
-        </h4>
-    </button>
+    <div class="header__right">
+        <button class="header__menu cursor--click h4 anim" tabindex="0">
+                menu
+        </button>
+        <?php get_template_part("template-parts/header", "language-selector") ?>
+    </div>
 </header>
 <div class="menu inactive">
     <ul class="menu__list main">
         <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>"><?php echo $labels["home"][$language]?></a></li>
-        <li class="menu__item cursor--click item animate prace"><?php echo $labels["prace"][$language]?></li>
+        <li class="menu__item cursor--click item animate prace" tabindex="0"><?php echo $labels["prace"][$language]?></li>
         <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>/kontakt"><?php echo $labels["kontakt"][$language]?></a></li>
         <li class="menu__item cursor--click item animate"><a href="<?php echo $home?>/na-sprzedaz"><?php echo $labels["na_sprzedaz"][$language]?></a></li>
 	    <br/>
-        <?php get_template_part("template-parts/header", "language-selector") ?>
     </ul>
     <ul class="menu__list hidden categories">
 		<?php
@@ -263,7 +262,14 @@
 			echo "<li class='menu__item animate cursor--img item' data-thumbnail='$thumbnail_url'><a href='$home/prace/$slug'>$name</a></li>";
 		}
 		?>
+        <li class='menu__item animate cursor--img item' data-thumbnail='<?php echo get_template_directory_uri().'/assets/images/main-thumb.jpg' ?>'><a href='<?php echo $home."/prace" ?>'><?php echo $labels["wszystkie"][$language]?></a></li>
     </ul>
+    <button class="menu__btn--close cursor--click h6">
+        <?php echo $labels["zamknij"][$language]?>
+    </button>
+    <div class="position--bottom">
+        <?php get_template_part("template-parts/header", "language-selector") ?>
+    </div>
     <?php
     get_template_part("template-parts/content", "copyrights");
     ?>
@@ -337,6 +343,7 @@
         subMenu.classList.toggle('hidden');
     }
 
+    // Handling the "prace" li item to enter nested menu
     prace.addEventListener('click',async () => {
         menuItemsLeave({reverse:true}).then(()=>{
             menuItemsEnter({reverse:true});
@@ -344,10 +351,38 @@
             }
         );
     });
+    prace.addEventListener('keydown', async (event) => {
+        if (event.key === 'Enter' || event.keyCode === 13) {
+            menuItemsLeave({reverse:true}).then(() => {
+                menuItemsEnter({reverse:true});
+                toggleMenuOptions();
+            });
+        }
+    });
 
-    button.addEventListener('click', () => {
-        toggleMenu();
-        menuItemsEnter();
+    // Preventing menu button spam
+    let isProcessing = false;
+    button.addEventListener('click', async (e) => {
+        console.log(isProcessing);
+        if (isProcessing) return;
+        isProcessing = true;
+        e.target.disabled = true;
+
+        try {
+            toggleMenu();
+            await menuItemsEnter();
+        } finally {
+            isProcessing = false;
+            e.target.disabled = false;
+        }
+    });
+
+    // Handling menu closing options
+    document.querySelector('.menu__btn--close').addEventListener('click', async () => {
+        setTimeout(()=>{
+            toggleMenu();
+        }, 300);
+        await menuItemsLeave();
     });
     menuContainer.addEventListener('click', async (e) => {
         if(e.target === menuContainer){

@@ -49,12 +49,12 @@ h3{
   font-weight: 500;
   text-transform: uppercase;
 }
-h4{
+h4, .h4{
   @include playfair-display;
   font-size: 1.8rem;
   font-weight: 400;
 }
-h6{
+h6, .h6{
     @include playfair-display;
     font-size: 1rem;
     font-weight: 400;

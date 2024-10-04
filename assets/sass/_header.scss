@@ -149,6 +149,12 @@ $szpiegPath: "../images/szpieg.png";
     display: block;
     border: none;
     background-color: transparent;
+    margin: 0;
+  }
+
+  &__right{
+    opacity: 0;
+    position: relative;
   }
 
   &:after{
@@ -165,5 +171,28 @@ $szpiegPath: "../images/szpieg.png";
 
     right: 0;
     top: calc(50% - 2rem);
+  }
+}
+
+.menu__btn--close{
+    display: none;
+  @include breakpoint(lg){
+    display: block;
+    border: none;
+    background-color: transparent;
+    color: white;
+    text-transform: lowercase;
+    position: absolute;
+    bottom: 4rem;
+    left: 100px;
+    &:hover{
+      color: $red;
+    }
+  }
+}
+
+body:has(div.ranAnim){
+  .header__right{
+    opacity: 1;
   }
 }

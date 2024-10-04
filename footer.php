@@ -13,6 +13,13 @@
             ease: 'power4.inOut',
             onComplete: () => {
                 transitionBox.classList.add('ranAnim');
+                gsap.from(".header__right .anim", {
+                    duration: 0.3,
+                    y: "15%",
+                    opacity: 0,
+                    stagger: 0.2,
+                    delay: 0.2
+                });
             }
         });
     }

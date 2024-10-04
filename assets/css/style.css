@@ -99,7 +99,7 @@ h3 {
   text-transform: uppercase;
 }
 
-h4 {
+h4, .h4 {
   font-family: "Playfair Display", serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -108,7 +108,7 @@ h4 {
   font-weight: 400;
 }
 
-h6 {
+h6, .h6 {
   font-family: "Playfair Display", serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -342,6 +342,11 @@ input, .form-field * {
   display: block;
   border: none;
   background-color: transparent;
+  margin: 0;
+}
+.header__right {
+  opacity: 0;
+  position: relative;
 }
 .header:after {
   content: "";
@@ -358,9 +363,33 @@ input, .form-field * {
   top: calc(50% - 2rem);
 }
 
+.menu__btn--close {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .menu__btn--close {
+    display: block;
+    border: none;
+    background-color: transparent;
+    color: white;
+    text-transform: lowercase;
+    position: absolute;
+    bottom: 4rem;
+    left: 100px;
+  }
+  .menu__btn--close:hover {
+    color: #FE0000;
+  }
+}
+
+body:has(div.ranAnim) .header__right {
+  opacity: 1;
+}
+
 .menu {
   font-size: 5rem;
   justify-content: center;
+  display: flex;
   align-items: center;
   flex-direction: column;
   position: fixed;
@@ -371,7 +400,6 @@ input, .form-field * {
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
   pointer-events: none;
-  display: flex;
   z-index: 11;
   background-image: url("../images/menu-bg-sm.png");
   background-size: cover;
@@ -406,8 +434,13 @@ input, .form-field * {
   height: min-content;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 4rem 0;
   position: relative;
+}
+@media (min-width: 1024px) {
+  .menu__list {
+    margin: 0;
+  }
 }
 .menu__list.categories .menu__item {
   position: relative;
@@ -680,7 +713,7 @@ input, .form-field * {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: clamp(50vh, 600px, 100vh);
+  height: clamp(50vh, 700px, 100vh);
   width: 100%;
   margin: 0 auto;
   gap: 3rem;
@@ -814,20 +847,24 @@ input, .form-field * {
 }
 
 .lang {
-  position: absolute;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   column-gap: 1rem;
-  top: 100%;
-  margin-top: 3rem;
 }
 .lang .lang__item {
-  font-size: 1rem;
-  width: 3rem;
-  height: 3rem;
+  font-size: 1.5rem;
+  width: 4rem;
+  height: 4rem;
   position: relative;
+}
+@media (min-width: 1024px) {
+  .lang .lang__item {
+    font-size: 1rem;
+    width: 3rem;
+    height: 3rem;
+  }
 }
 .lang .lang__item.active span {
   text-decoration: underline;
@@ -838,6 +875,29 @@ input, .form-field * {
   left: 50%;
   transform: translate(-50%, -50%);
   color: #F8F9F3;
+}
+
+.header .lang {
+  position: absolute;
+  column-gap: 0;
+  width: 100%;
+  right: 1px;
+}
+.header .lang label {
+  flex-basis: 100%;
+  height: 1.75rem;
+}
+.header .lang label:not(.active) {
+  opacity: 0.7;
+}
+.header .lang span {
+  text-transform: lowercase;
+  color: #000000;
+}
+
+.position--bottom {
+  position: absolute;
+  bottom: 3rem;
 }
 
 .navigation {

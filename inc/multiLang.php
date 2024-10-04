@@ -126,7 +126,17 @@ function ml_menuItems(){
 			'pl' => 'Na Sprzedaż',
 			'en' => 'For Sale',
 			'fr' => 'à Vendre'
-		)
+		),
+		"wszystkie" =>array(
+			"pl" => "Wszystkie",
+			"en" => "All",
+			"fr" => "Tous"
+		),
+		"zamknij" => array(
+			"pl" => "Zamknij",
+			"en" => "Close",
+			"fr" => "Fermer"
+		),
 	);
 }
 
